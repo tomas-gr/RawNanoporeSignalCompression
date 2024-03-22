@@ -1,0 +1,49 @@
+método,tasa de compresión,velocidad
+PGNano,6.95871,48.9614
+Golomb (High part) Range Transform (5-7),7.13079,82.7533
+Golomb (High part) Transform (5-7),7.15303,346.859
+Golomb (High part) ZSTD (max level) Transform (5-7),7.16169,7.3681
+Vbz,7.19872,915.562
+Golomb (High part) Range Transform (4-8),7.21975,98.7114
+Golomb (High part) Transform (4-8),7.22334,319.411
+Golomb (High part) Range Transform (6-6),7.25368,69.0695
+Golomb (Low part) Transform Range (8),7.32681,184.554
+Golomb (Low part) Transform Range (9),7.33178,189.184
+Golomb (Low part) Transform Range (10),7.35285,196.408
+Golomb (Low part) Transform Range (11),7.35476,196.308
+Golomb (Low part) Transform Range (12),7.35591,185.704
+Golomb (Low part) Transform Range (7),7.36802,177.643
+Golomb (High part) Transform (6-6),7.38068,360.471
+Golomb (Low part) Transform Range (6),7.41532,146.648
+Golomb (Low part) Transform Range (5),7.45349,127.514
+Golomb (Low part) Transform Range (4),7.55324,102.95
+TurboPFor ZigZag,7.74615,620.88
+TurboPFor Transform,7.74818,337.004
+Golomb (High part) RLE Transform (6-6),7.94399,349.34
+Golomn (Low part) Transform 11,8.37349,237.303
+Variable byte Transform,8.44684,428.9
+Golomb (High part) RLE Transform (5-7),8.59255,272.386
+Golomb (High part) RLE Transform (4-8),8.82556,263.652
+Golomn (Low part) Transform 10,9.36924,237.316
+Golomn (Low part) Transform 9,10.3118,237.956
+TurboPFor,10.4272,1110.29
+Golomb (High part) (6-6),10.9173,465.102
+Golomb (High part) Range (5-7),10.9349,86.3276
+Golomb (High part) (5-7),10.9446,395.801
+Golomb (High part) ZSTD (max level) (5-7),10.9525,6.51765
+Golomb (High part) (4-8),10.9782,346.383
+Golomn (Low part) Transform 8,11.1644,240.477
+Golomn (Low part) Transform 7,11.8937,241.786
+RLE 9.4.1,12.0227,489.164
+Golomn (Low part) Transform 6,12.336,255.31
+Golomn (Low part) Transform 5,12.4407,270.808
+Golomn (Low part) Transform 4,12.4841,288.629
+Golomn (Low part) Transform 1,12.5004,377.32
+Golomn (Low part) Transform 3,12.5026,309.719
+Golomn (Low part) Transform 2,12.5126,338.51
+Variable byte,15.9992,939.89
+Golomn (Low part) Transform 12,16138.3,236.944
+Golomn (Low part) Transform 13,96791.0,237.092
+Golomn (Low part) Transform 14,122289.0,237.352
+Golomn (Low part) Transform 15,122421.0,236.51
+Golomn (Low part) Transform 16,122831.0,237.18

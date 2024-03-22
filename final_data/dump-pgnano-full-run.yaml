@@ -1,0 +1,141 @@
+AllData:
+    copy:
+        58
+        All test successful
+        Statistics:
+            Average compression speed: 13.096737773445543 MB/s
+            Average decompression: 12.25166371887406 MB/s
+            Average comparison: 140.12156203724257 MB/s
+            Macro average size ratio: 0.9709679761239802
+            Micro average size ratio: 0.9716761180923786
+            Macro average compression ratio: 6.456551036332165 bits/sample
+            Micro average compression ratio: 6.329523583109103 bits/sample
+    standalone:
+        58
+        All test successful
+        Statistics:
+            Average compression speed: 13.469143521603097 MB/s
+            Average decompression: 11.518975540989176 MB/s
+            Average comparison: 145.7109198685181 MB/s
+            Macro average size ratio: 0.9691431945702952
+            Micro average size ratio: 0.9697517019277343
+            Macro average compression ratio: 6.446781083586939 bits/sample
+            Micro average compression ratio: 6.319476391835458 bits/sample
+R10_4_1:
+    copy:
+        29
+        All test successful
+        Statistics:
+            Average compression speed: 13.41336264627982 MB/s
+            Average decompression: 14.311269131508423 MB/s
+            Average comparison: 164.88769567607943 MB/s
+            Macro average size ratio: 0.9643341225281813
+            Micro average size ratio: 0.965498376698539
+            Macro average compression ratio: 6.908220624551063 bits/sample
+            Micro average compression ratio: 6.894443013379291 bits/sample
+    standalone:
+        29
+        All test successful
+        Statistics:
+            Average compression speed: 14.300232106620998 MB/s
+            Average decompression: 13.402026199277476 MB/s
+            Average comparison: 166.22709418133508 MB/s
+            Macro average size ratio: 0.9625605495237736
+            Micro average size ratio: 0.963524200053441
+            Macro average compression ratio: 6.8977924728649835 bits/sample
+            Micro average compression ratio: 6.882713769676963 bits/sample
+
+R10_3_1:
+    copy:
+        14
+        All test successful
+        Statistics:
+            Average compression speed: 19.27108949733998 MB/s
+            Average decompression: 17.360899061687405 MB/s
+            Average comparison: 195.0389737781527 MB/s
+            Macro average size ratio: 0.9635637098320788
+            Micro average size ratio: 0.9634532903533024
+            Macro average compression ratio: 6.844391500409579 bits/sample
+            Micro average compression ratio: 6.8460830938403205 bits/sample
+    standalone:
+        14
+        All test successful
+        Statistics:
+            Average compression speed: 20.227840645420734 MB/s
+            Average decompression: 16.495636877813602 MB/s
+            Average comparison: 194.37427391244583 MB/s
+            Macro average size ratio: 0.9615452972102333
+            Micro average size ratio: 0.9614360292837012
+            Macro average compression ratio: 6.832448286798722 bits/sample
+            Micro average compression ratio: 6.834141503741961 bits/sample
+R9_4_1:
+    copy:
+        15
+        All test successful
+        Statistics:
+            Average compression speed: 19.99862284257784 MB/s
+            Average decompression: 15.564538865122396 MB/s
+            Average comparison: 219.34975281249672 MB/s
+            Macro average size ratio: 0.9907040749482996
+            Micro average size ratio: 0.990718898864257
+            Macro average compression ratio: 5.221338732636708 bits/sample
+            Micro average compression ratio: 5.2167912576609545 bits/sample
+    standalone:
+        /data/pgnanoraw/pod5_fork/src/python/pgnano/test_scripts/batch_test.py  standalone
+        15
+        All test successful
+        Statistics:
+            Average compression speed: 19.208017685496095 MB/s
+            Average decompression: 15.217870002294587 MB/s
+            Average comparison: 221.6447106857518 MB/s
+            Macro average size ratio: 0.9889610125296282
+            Micro average size ratio: 0.9889744561892999
+            Macro average compression ratio: 5.214869674651721 bits/sample
+            Micro average compression ratio: 5.210321110334874 bits/sample
+Fly:
+    copy:
+        14
+        All test successful
+        Statistics:
+            Average compression speed: 19.291512325839108 MB/s
+            Average decompression: 17.359474689489428 MB/s
+            Average comparison: 181.86625135486022 MB/s
+            Macro average size ratio: 0.966964833743068
+            Micro average size ratio: 0.9687768645087352
+            Macro average compression ratio: 6.822325420461805 bits/sample
+            Micro average compression ratio: 6.795313963538449 bits/sample
+    standalone:
+        14
+        All test successful
+        Statistics:
+            Average compression speed: 20.25072234697141 MB/s
+            Average decompression: 16.528027867674158 MB/s
+            Average comparison: 181.07445576994513 MB/s
+            Macro average size ratio: 0.9653000485527327
+            Micro average size ratio: 0.9668954541068883
+            Macro average compression ratio: 6.812817252236319 bits/sample
+            Micro average compression ratio: 6.784454943859696 bits/sample
+
+Human10.4.1:
+    copy:
+        15
+        All test successful
+        Statistics:
+            Average compression speed: 18.75144339527266 MB/s
+            Average decompression: 17.134683107465744 MB/s
+            Average comparison: 188.18984939780955 MB/s
+            Macro average size ratio: 0.9618787920609536
+            Micro average size ratio: 0.963164836610778
+            Macro average compression ratio: 6.988389481701038 bits/sample
+            Micro average compression ratio: 6.967192680361239 bits/sample
+    standalone:
+        15
+        All test successful
+        Statistics:
+            Average compression speed: 19.642345383728966 MB/s
+            Average decompression: 16.389621283440157 MB/s
+            Average comparison: 189.81538568633667 MB/s
+            Macro average size ratio: 0.960003683763412
+            Micro average size ratio: 0.96112463143059
+            Macro average compression ratio: 6.977102678785071 bits/sample
+            Micro average compression ratio: 6.954824789279393 bits/sample

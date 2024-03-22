@@ -1,0 +1,83 @@
+[fields.read_id]
+type = "minknow.uuid"
+description = "Globally-unique identifier for the read, can be converted to a string form (using standard routines in other libraries) which matches how reads are identified elsewhere."
+
+[fields.signal]
+type = "list(uint64)"
+description = "A list of zero-indexed row numbers in the Signal table. This must be all the rows in the Signal table that have a matching read_id, in order. It functions as an index for the Signal table."
+
+[fields.channel]
+type = "uint16"
+description = "1-indexed channel"
+
+[fields.well]
+type = "uint8"
+description = "1-indexed well (typically 1, 2, 3 or 4)"
+
+[fields.pore_type]
+type = "dictionary(string)"
+description = "Name of the pore type present in the well"
+
+[fields.calibration_offset]
+type = "float"
+description = "Calibration offset used to scale raw ADC data into pA readings."
+
+[fields.calibration_scale]
+type = "float"
+description = "Calibration scale factor used to scale raw ADC data into pA readings."
+
+[fields.read_number]
+type = "uint32"
+description = "The read number on channel. This is increasing but typically not necessarily consecutive."
+
+[fields.start]
+type = "uint64"
+description = "How many samples were taken on this channel before the read started (since the data acquisition period began). This can be combined with the sample rate to get a time in seconds for the start of the read relative to the start of data acquisition."
+
+[fields.median_before]
+type = "float"
+description = "The level of current in the well before this read (typically the open pore level of the well). If the level is not known (eg: due to a mux change), this should be nulled out."
+
+[fields.tracked_scaling_scale]
+type = "float"
+description = "Scale for tracked read scaling values (based on previous reads shift)"
+
+[fields.tracked_scaling_shift]
+type = "float"
+description = "Shift for tracked read scaling values (based on previous reads shift)"
+
+[fields.predicted_scaling_scale]
+type = "float"
+description = "Scale for predicted read scaling values (based on this read's raw signal)"
+
+[fields.predicted_scaling_shift]
+type = "float"
+description = "Shift for predicted read scaling values (based on this read's raw signal)"
+
+[fields.num_reads_since_mux_change]
+type = "uint32"
+description = "Number of selected reads since the last mux change on this reads channel"
+
+[fields.time_since_mux_change]
+type = "float"
+description = "Time in seconds since the last mux change on this reads channel"
+
+[fields.num_minknow_events]
+type = "int8"
+description = "Number of minknow events that the read contains"
+
+[fields.end_reason]
+type = "dictionary(string)"
+description = "The end reason, currently one of: unknown, mux_change, unblock_mux_change, data_service_unblock_mux_change, signal_positive or signal_negative."
+
+[fields.end_reason_forced]
+type = "bool"
+description = "True if this read was ended 'forcibly' (eg: mux_change, unblock), false if it was a data-driven read break (signal_positive, signal_negative). This allows simple categorisation even in the presence of new reasons that reading code is unaware of."
+
+[fields.run_info]
+type = "dictionary(utf8)"
+description = "The run (acquisition) this read came from. Must match the acquisition_id field of exactly one entry in the run_info table."
+
+[fields.num_samples]
+type = "uint64"
+description = "The full length of the signal for this read in samples (equal to the sum of all 'samples' fields of signal chunks)"

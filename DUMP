@@ -1,0 +1,58 @@
+------------------------------------------------------------------
+------------------- Transformation Benchmarks --------------------
+------------------------------------------------------------------
+Naive difference benchmark operated at speed: 3282.37MB/s
+Max bit benchmark operated at speed: 8.56928e-06MB/s
+------------------------------------------------------------------
+--------------------- Compression Benchmarks ---------------------
+------------------------------------------------------------------
+PGNano                                             : 6.95871 bits/symbol at speed: 48.3774MB/s
+Rice + Range / Golomb | RLE(15, Range) (10-6)      : 7.10198 bits/symbol at speed: 57.1402MB/s
+Rice + Range / Golomb (5-11)                       : 7.13079 bits/symbol at speed: 81.5154MB/s
+Rice + Range / Golomb | RLE(15, Range) (9-7)       : 7.137 bits/symbol at speed: 67.0539MB/s
+Rice + Uniforme / Golomb (5-11)                    : 7.15303 bits/symbol at speed: 339.864MB/s
+Rice + Range / Golomb | RLE(15, Range) (8-8)       : 7.15314 bits/symbol at speed: 57.7556MB/s
+Rice + ZSTD / Golomb (5-11)                        : 7.16169 bits/symbol at speed: 7.33436MB/s
+Rice + Range / Golomb | RLE(15, Range) (7-9)       : 7.16698 bits/symbol at speed: 71.3654MB/s
+Vbz                                                : 7.19872 bits/symbol at speed: 834.849MB/s
+Rice + Range / Golomb (4-12)                       : 7.21975 bits/symbol at speed: 96.7593MB/s
+Rice + Uniforme / Golomb                           : 7.22334 bits/symbol at speed: 297.075MB/s
+Rice + Range / Golomb (6-10)                       : 7.25368 bits/symbol at speed: 68.2916MB/s
+Rice + Range / Golomb | RLE(15, Range) (6-10)      : 7.31826 bits/symbol at speed: 76.3711MB/s
+Rice + Golomb / Range (8-8)                        : 7.32681 bits/symbol at speed: 187.813MB/s
+Rice + Golomb / Range (9-7)                        : 7.33178 bits/symbol at speed: 181.179MB/s
+Rice + Golomb / Range (10-6)                       : 7.35285 bits/symbol at speed: 186.998MB/s
+Rice + Golomb / Range (11-5)                       : 7.35476 bits/symbol at speed: 191.268MB/s
+Rice + Golomb / Range (12-4)                       : 7.35591 bits/symbol at speed: 191.953MB/s
+Rice + Golomb / Range (7-9)                        : 7.36802 bits/symbol at speed: 175.149MB/s
+Rice + Uniforme / Golomb (6-10)                    : 7.38068 bits/symbol at speed: 381.388MB/s
+Rice + Golomb / Range (6-10)                       : 7.41532 bits/symbol at speed: 153.676MB/s
+Rice + Golomb / Range (5-11)                       : 7.45349 bits/symbol at speed: 127.31MB/s
+Rice + Golomb / Range (4-12)                       : 7.55324 bits/symbol at speed: 107.832MB/s
+TurboPFor ZigZag                                   : 7.74615 bits/symbol at speed: 622.356MB/s
+Rice + TurboPFor                                   : 7.74818 bits/symbol at speed: 322.96MB/s
+Rice + Range / Golomb | RLE(15, Range) (5-11)      : 7.8356 bits/symbol at speed: 78.5551MB/s
+Rice + Uniforme / Golomb | RLE(15, Uniforme) (6-10): 7.94399 bits/symbol at speed: 328.852MB/s
+Rice + Range / Golomb | RLE(15, Range) (4-12)      : 8.09915 bits/symbol at speed: 92.1761MB/s
+Rice + Golomb / Uniforme(Empaquetado) (11-5)       : 8.37349 bits/symbol at speed: 234.869MB/s
+Rice + Variable byte                               : 8.44684 bits/symbol at speed: 403.58MB/s
+Rice + Uniforme / Golomb | RLE(15, Uniforme) (5-11): 8.59255 bits/symbol at speed: 260.147MB/s
+Rice + Uniforme / Golomb | RLE(15, Uniforme) (4-12): 8.82556 bits/symbol at speed: 251.54MB/s
+Rice + Golomb / Uniforme(Empaquetado) (10-6)       : 9.36924 bits/symbol at speed: 234.671MB/s
+Rice + Golomb / Uniforme(Empaquetado) (9-7)        : 10.3118 bits/symbol at speed: 236.000MB/s
+TurboPFor                                          : 10.4272 bits/symbol at speed: 1108.98MB/s
+Uniforme / Golomb (6-10)                           : 10.9173 bits/symbol at speed: 462.934MB/s
+Golomb (High part) Range (5-11)                    : 10.9349 bits/symbol at speed: 86.0287MB/s
+Uniforme / Golomb (5-11)                           : 10.9446 bits/symbol at speed: 395.821MB/s
+ZSTD / Golomb (5-11)                               : 10.9525 bits/symbol at speed: 6.52554MB/s
+Uniforme / Golomb (4-12)                           : 10.9782 bits/symbol at speed: 346.585MB/s
+Rice + Golomb / Uniforme(Empaquetado) (8-8)        : 11.1644 bits/symbol at speed: 238.3MB/s
+Rice + Golomb / Uniforme(Empaquetado) (7-9)        : 11.8937 bits/symbol at speed: 240.783MB/s
+Rice + RLE 9.4.1                                   : 12.0227 bits/symbol at speed: 434.873MB/s
+Rice + Golomb / Uniforme(Empaquetado) (6-10)       : 12.336 bits/symbol at speed: 249.808MB/s
+Rice + Golomb / Uniforme(Empaquetado) (5-11)       : 12.4407 bits/symbol at speed: 267.765MB/s
+Rice + Golomb / Uniforme(Empaquetado) (4-12)       : 12.4841 bits/symbol at speed: 290.965MB/s
+Rice + Golomb / Uniforme(Empaquetado) (1-15)       : 12.5004 bits/symbol at speed: 364.938MB/s
+Rice + Golomb / Uniforme(Empaquetado) (3-13)       : 12.5026 bits/symbol at speed: 317.331MB/s
+Rice + Golomb / Uniforme(Empaquetado) (2-14)       : 12.5126 bits/symbol at speed: 347.634MB/s
+Variable byte                                      : 15.9992 bits/symbol at speed: 927.156MB/s

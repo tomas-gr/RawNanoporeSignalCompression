@@ -1,0 +1,960 @@
+stages:
+  - .pre
+  - build
+  - test
+  - build-conan
+  - archive
+  - deploy
+
+include:
+    - project: 'informatics/conan-config'
+      file: '/gitlab-ci-common.yml'
+
+variables:
+  GIT_SUBMODULE_STRATEGY: recursive
+  STABLE_BRANCH_NAME: master
+  EXTRA_CREATE_ARGS: -opod5_file_format:nanopore_internal_build=True # For conan builds
+  DO_UPLOAD: "yes" # Always upload in conan upload jobs (only run on tags)
+
+before_script:
+  - ""
+
+
+# ======================================
+#
+#     Docker
+#
+# ======================================
+
+
+.build-docker-image:
+  stage: .pre
+  image: ${CI_REGISTRY}/traque/ont-docker-base/ont-base-docker:latest
+  before_script:
+    - docker login --username ${CI_REGISTRY_USER} --password ${CI_REGISTRY_PASSWORD} ${CI_REGISTRY}
+  when: manual
+  retry:
+    max: 2
+    when: runner_system_failure
+  script:
+    - tag="${CI_REGISTRY_IMAGE}/${IMAGE_TAG}"
+    - docker image build --pull --target "${PLATFORM}"
+                         --tag "${tag}" --file ${DOCKERFILE} ci/docker
+    - docker image push ${tag}
+
+docker base aarch64:
+  tags:
+    - docker-builder-arm
+  extends:
+    - .build-docker-image
+  variables:
+    IMAGE_TAG: "build-arm64"
+    DOCKERFILE: "ci/docker/Dockerfile.py39.arm64"
+
+docker base x86-64:
+  tags:
+    - docker-builder
+  extends:
+    - .build-docker-image
+  variables:
+    IMAGE_TAG: "build-x64"
+    DOCKERFILE: "ci/docker/Dockerfile.py39.x64"
+
+docker conda:
+  tags:
+    - docker-builder
+  extends:
+    - .build-docker-image
+  variables:
+    IMAGE_TAG: "conda"
+    DOCKERFILE: "ci/docker/Dockerfile.conda"
+
+
+.docker template:
+  stage: docker
+  image: ${CI_REGISTRY}/traque/ont-docker-base/ont-base-docker:latest
+  before_script:
+    - docker login --username ${CI_REGISTRY_USER} --password ${CI_REGISTRY_PASSWORD} ${CI_REGISTRY}
+  retry:
+    max: 2
+    when: runner_system_failure
+
+# ======================================
+#
+#     Versioning
+#
+# ======================================
+
+prepare_version:
+  stage: .pre
+  image: ${CI_REGISTRY}/traque/ont-docker-base/ont-base-python:3.10
+  script:
+    - git tag -d $(git tag -l "*a*")
+    - git tag -d $(git tag -l "*b*")
+    - git tag -d $(git tag -l "*r*")
+    - git tag -d $(git tag -l "*c*")
+    - git tag -d $(git tag -l "*dev*")
+    - if [[ ${CI_COMMIT_TAG/#v/} && -z $( git tag -l "${CI_COMMIT_TAG/#v/}" ) ]]; then git tag ${CI_COMMIT_TAG/#v/}; fi
+    - pip install --upgrade pip setuptools_scm
+    - python -m setuptools_scm
+    - cat _version.py
+    # Show the version that will be used in the pod5/pyproject.toml
+    - VERSION=$(grep "__version__" _version.py | awk '{print $5}' | tr -d "'" | cut -d'+' -f1)
+    - echo $VERSION
+    - python -m pod5_make_version
+    - cat cmake/POD5Version.cmake
+    - cat _version.py python/lib_pod5/src/lib_pod5/_version.py
+    - cat _version.py python/pod5/src/pod5/_version.py
+  artifacts:
+    name: "${CI_JOB_NAME}-artifacts"
+    paths:
+      - "cmake/POD5Version.cmake"
+      - "_version.py"
+      - "python/lib_pod5/src/lib_pod5/_version.py"
+      - "python/pod5/src/pod5/_version.py"
+
+
+# ======================================
+#
+#     Pre-Flight Setup / Checks
+#
+# ======================================
+
+tag_version_check:
+  stage: .pre
+  needs:
+    - "prepare_version"
+  only:
+    - tags
+  image: ${CI_REGISTRY}/minknow/images/build-x86_64-gcc9:latest
+  script:
+    - pod5_version="$(cmake -P ci/get_tag_version.cmake 2>&1)"
+    - tag_version="${CI_COMMIT_TAG/#v/}"
+    - if [[ "${pod5_version}" != "${tag_version}" ]]; then
+        echo "Tag is for release ${tag_version}, but POD5 version is $pod5_version";
+        exit 1;
+      fi
+
+pre-commit checks:
+    image: ${CI_REGISTRY}/traque/ont-docker-base/ont-base-python:3.10
+    stage: .pre
+    tags:
+        - linux
+    script:
+          # Need v2.21.0 until we drop python3.7 support
+        - pip install pre-commit==v2.21.0
+          # if any of the hooks wanted to modify files, this will have a non-zero exit
+        - if ! pre-commit run --all-files --verbose --color always ; then
+        - rm -rf .cache
+        - git checkout -f
+        - pre-commit run --all-files --verbose --color always
+        - fi
+    variables:
+        PRE_COMMIT_HOME: ${CI_PROJECT_DIR}/.cache/pre-commit
+    cache:
+        paths:
+            - ${PRE_COMMIT_HOME}
+
+
+# ======================================
+#
+#     Build Lib Standalone
+#
+# ======================================
+
+
+build-standalone-ubu20:
+  stage: build
+  image: external-docker.artifactory.oxfordnanolabs.local/ubuntu:20.04
+  needs:
+    - "prepare_version"
+  script:
+    - export DEBIAN_FRONTEND=noninteractive
+    - apt update
+    - apt install -y -V ca-certificates lsb-release wget
+    - wget https://apache.jfrog.io/artifactory/arrow/$(lsb_release --id --short | tr 'A-Z' 'a-z')/apache-arrow-apt-source-latest-$(lsb_release --codename --short).deb
+    - apt install -y -V ./apache-arrow-apt-source-latest-$(lsb_release --codename --short).deb
+    - apt update
+    - apt install -y cmake build-essential libzstd-dev libzstd-dev libboost-dev libflatbuffers-dev libarrow-dev=8.0.0-1
+    - mkdir -p build
+    - cd build
+    - cmake -DBUILD_PYTHON_WHEEL=OFF ..
+    - make -j
+  allow_failure: true
+
+
+# ======================================
+#
+#     Build Lib Linux
+#
+# ======================================
+
+
+.build-linux:
+  stage: build
+  needs:
+    - "prepare_version"
+  retry: 1
+  before_script:
+    - /opt/python/cp310-cp310/bin/pip install -U pip 'conan<2' auditwheel build
+    - ln -n /opt/python/cp310-cp310/bin/auditwheel /usr/bin/auditwheel
+    - ln -n /opt/python/cp310-cp310/bin/conan /usr/bin/conan
+    - conan config install --verify-ssl=no ${CONAN_CONFIG_URL}
+  script:
+    - pod5_version="$(cmake -P ci/get_tag_version.cmake 2>&1)"
+    - mkdir -p build
+    - cd build
+    - conan install --profile ${CONAN_PROFILE} -opod5_file_format:nanopore_internal_build=True ..
+    - cmake ${CMAKE_ARGS} -DBUILD_SHARED_LIB=ON -DCMAKE_BUILD_TYPE=Release -DENABLE_CONAN=ON -DBUILD_PYTHON_WHEEL=OFF ..
+    - cmake --build . --config Release
+    - ctest -C Release -VV
+    - ../ci/install.sh
+    - cmake ${CMAKE_ARGS} -DBUILD_SHARED_LIB=OFF -DCMAKE_BUILD_TYPE=Release -DENABLE_CONAN=ON -DBUILD_PYTHON_WHEEL=${PYTHON_ENABLED} -DPYTHON_VERSION=${PYTHON_VERSION} ..
+    - cmake --build . --config Release
+    - ctest -C Release -VV
+    - ../ci/install.sh
+    - ../ci/package.sh ${OUTPUT_SKU} ${AUDITWHEEL_PLATFORM}
+  artifacts:
+    name: "${CI_JOB_NAME}-artifacts"
+    paths:
+      - "lib_pod5*.tar.gz"
+      - "lib_pod5*.whl"
+
+linux-aarch64-gcc7-release-build:
+  image: ${CI_REGISTRY}/ofan/ofan-docker-base/arm64v8/conan:18.04
+  extends: [".build-linux"]
+  before_script:
+    - conan config install --verify-ssl=no ${CONAN_CONFIG_URL}
+  tags:
+    - linux_aarch64
+    - high-cpu
+  variables:
+    CONAN_PROFILE: "linux-aarch64-gcc7-release"
+    OUTPUT_SKU: "linux-gcc7-arm64"
+    PYTHON_ENABLED: "OFF"
+
+linux-x64-gcc9-release-build:
+  image: quay.io/pypa/manylinux2014_x86_64
+  extends: [".build-linux"]
+  tags:
+    - linux
+  variables:
+    CONAN_PROFILE: "linux-x86_64-gcc9-release"
+    OUTPUT_SKU: "linux-x64"
+    AUDITWHEEL_PLATFORM: manylinux2014_x86_64
+    PYTHON_ENABLED: "ON"
+  parallel:
+    matrix:
+      - PYTHON_VERSION: ["3.7", "3.8", "3.9", "3.10", "3.11"]
+
+linux-aarch64-gcc9-release-build:
+  image: quay.io/pypa/manylinux2014_aarch64
+  extends: [".build-linux"]
+  tags:
+    - linux_aarch64
+    - high-cpu
+  variables:
+    CONAN_PROFILE: "linux-aarch64-gcc9-release"
+    OUTPUT_SKU: "linux-arm64"
+    AUDITWHEEL_PLATFORM: manylinux2014_aarch64
+    PYTHON_ENABLED: "ON"
+  parallel:
+    matrix:
+      - PYTHON_VERSION: ["3.7", "3.8", "3.9", "3.10", "3.11"]
+
+
+# ======================================
+#
+#     Build Lib OSX
+#
+# ======================================
+
+
+.build-osx-common:
+  stage: build
+  needs:
+    - "prepare_version"
+  retry: 1
+  before_script:
+    - conan config install --verify-ssl=no "${CONAN_CONFIG_URL}"
+    - ci/setup_python_osx.sh ${PYTHON_VERSION} ./python
+    - export PATH="$(pwd)/python/Python.framework/Versions/Current/bin/:${PATH}"
+    - python3 -m venv .venv/
+    - source .venv/bin/activate
+    - pip install --upgrade pip build
+    - which python
+    - python --version
+  script:
+    - python3 -c "import sysconfig; print(sysconfig.get_platform())"
+    - pod5_version="$(cmake -P ci/get_tag_version.cmake 2>&1)"
+    - mkdir build
+    - cd build
+    - conan install --profile ${CONAN_PROFILE} -opod5_file_format:nanopore_internal_build=True ..
+    - cmake ${CMAKE_ARGS} -DBUILD_SHARED_LIB=ON -DCMAKE_BUILD_TYPE=Release -DENABLE_CONAN=ON -DBUILD_PYTHON_WHEEL=OFF ..
+    - cmake --build . --config Release
+    - ctest -C Release -VV
+    - ../ci/install.sh
+    - cmake ${CMAKE_ARGS} -DBUILD_SHARED_LIB=OFF -DCMAKE_BUILD_TYPE=Release -DENABLE_CONAN=ON -DBUILD_PYTHON_WHEEL=${BUILD_PYTHON_WHEEL} -DPYTHON_VERSION=${PYTHON_VERSION}  ..
+    - cmake --build . --config Release
+    - ctest -C Release -VV
+    - ../ci/install.sh
+    - ../ci/package.sh ${OUTPUT_SKU}
+  artifacts:
+    name: "${CI_JOB_NAME}-artifacts"
+    paths:
+      - "lib_pod5*.tar.gz"
+      - "lib_pod5*.whl"
+
+osx-x64-clang12-release-build:
+  extends: [".build-osx-common"]
+  tags:
+    - osx_x86
+    - xcode-12.4
+    - high-cpu
+    - conan
+  variables:
+    CONAN_PROFILE: "macos-x86_64-appleclang-12.0-release"
+    BUILD_PYTHON_WHEEL: "ON"
+  parallel:
+    matrix:
+      - PYTHON_VERSION: ["3.7.4", "3.8.9", "3.9.13"]
+        MACOSX_DEPLOYMENT_TARGET: "10.9"
+        OUTPUT_SKU: "osx-10.9-x64"
+      - PYTHON_VERSION: ["3.10.10", "3.11.2"]
+        MACOSX_DEPLOYMENT_TARGET: "10.9"
+        OUTPUT_SKU: "osx-10.9-x64"
+
+osx-arm64-clang13-release-build:
+  extends: [".build-osx-common"]
+  tags:
+    - osx_arm64
+    - xcode-13.3.1
+    - high-cpu
+    - conan
+  variables:
+    CONAN_PROFILE: "macos-aarch64-appleclang-13.1-release"
+    CMAKE_ARGS: "-DCMAKE_OSX_ARCHITECTURES=arm64"
+    BUILD_PYTHON_WHEEL: "ON"
+  parallel:
+    matrix:
+      - PYTHON_VERSION: ["3.7.4", "3.8.9", "3.9.13"]
+        MACOSX_DEPLOYMENT_TARGET: "10.9"
+        OUTPUT_SKU: "osx-10.9-arm64"
+        FORCE_PYTHON_PLATFORM: macosx_11_0_arm64
+      - PYTHON_VERSION: ["3.10.10", "3.11.2"]
+        MACOSX_DEPLOYMENT_TARGET: "11.0"
+        OUTPUT_SKU: "osx-11.0-arm64"
+        FORCE_PYTHON_PLATFORM: macosx_11_0_arm64
+
+
+# ======================================
+#
+#     Build Lib Windows
+#
+# ======================================
+
+
+.build-win-common:
+  stage: build
+  needs:
+    - "prepare_version"
+  retry: 1
+  before_script:
+    - conan config install --verify-ssl=no "${CONAN_CONFIG_URL}"
+    - export PYENV="${HOME}/.pyenv/pyenv-win"
+    - export PYENV_ROOT="${PYENV}"
+    - export PYENV_HOME="${PYENV}"
+    - export PATH="${PYENV}/bin:${PYENV}/shims:${PATH}"
+    - if [[ -z $(pyenv install --list | grep "${PYTHON_VERSION}") ]]; then pyenv update; fi
+    - pyenv install ${PYTHON_VERSION} --skip-existing
+    - pyenv local ${PYTHON_VERSION}
+    - python -m venv .venv
+    - source .venv/Scripts/activate
+  script:
+    - pod5_version="$(cmake -P ci/get_tag_version.cmake 2>&1)"
+    - pip install build
+    - mkdir build
+    - cd build
+    - conan install --profile ${CONAN_PROFILE} -opod5_file_format:nanopore_internal_build=True ..
+    - cmake -A x64 -G "Visual Studio 15 2017" -DBUILD_SHARED_LIB=ON -DCMAKE_BUILD_TYPE=Release -DENABLE_CONAN=ON -DBUILD_PYTHON_WHEEL=OFF ..
+    - cmake --build . --config Release
+    - ctest -C Release -VV
+    - ../ci/install.sh
+    - cmake -A x64 -G "Visual Studio 15 2017" -DBUILD_SHARED_LIB=OFF -DCMAKE_BUILD_TYPE=Release -DENABLE_CONAN=ON -DBUILD_PYTHON_WHEEL=ON ..
+    - cmake --build . --config Release
+    - ctest -C Release -VV
+    - ../ci/install.sh
+    - ../ci/package.sh ${OUTPUT_SKU}
+
+win-x64-msvc2017-release-build:
+  extends: [".build-win-common"]
+  tags:
+    - windows
+    - cmake
+    - VS2017
+    - conan
+  variables:
+    CONAN_PROFILE: "windows-x86_64-vs2017-release"
+    OUTPUT_SKU: "win-x64"
+  parallel:
+    matrix:
+      - PYTHON_VERSION: ["3.7.5", "3.8.0", "3.9.13", "3.10.10", "3.11.2"]
+  artifacts:
+    name: "${CI_JOB_NAME}-artifacts"
+    paths:
+      - "lib_pod5*.tar.gz"
+      - "lib_pod5*.whl"
+
+
+# ======================================
+#
+#     Build Python API
+#
+# ======================================
+
+
+build-python-api:
+  stage: build
+  needs:
+    - "prepare_version"
+  image: ${CI_REGISTRY}/traque/ont-docker-base/ont-base-python:3.10
+  tags:
+    - linux
+  retry: 1
+  script:
+    - git tag -d $(git tag -l "*a*")
+    - git tag -d $(git tag -l "*b*")
+    - git tag -d $(git tag -l "*r*")
+    - git tag -d $(git tag -l "*c*")
+    - git tag -d $(git tag -l "*dev*")
+    - if [[ ${CI_COMMIT_TAG/#v/} && -z $( git tag -l "${CI_COMMIT_TAG/#v/}" ) ]]; then git tag ${CI_COMMIT_TAG/#v/}; fi
+    - cat _version.py
+    - VERSION=$(grep "__version__" _version.py | awk '{print $5}' | tr -d "'" | cut -d'+' -f1)
+    - echo $VERSION
+    - cd python/pod5/
+    # update the lib_pod5 dependency in pod5/pyproject.toml to match
+    - sed -i "s/.*lib_pod5.*/\ \ \ \ \'lib_pod5 == ${VERSION}\',/" pyproject.toml
+    - cat pyproject.toml
+    - pip install -U pip build
+    - python -m build --outdir ../../
+    - cd ../..
+    - ls *.whl *.tar.gz
+  artifacts:
+    name: "${CI_JOB_NAME}-artifacts"
+    paths:
+      - "pod5*.whl"
+      - "pod5*.tar.gz"
+
+
+# ======================================
+#
+#     Test Tools
+#
+# ======================================
+
+
+.parallel-py-minor-ver: &parallel-py-minor-ver
+  parallel:
+    matrix:
+      - PY_MINOR_VER: ["7", "8", "9", "10", "11"]
+
+tools-linux-x64:
+  stage: test
+  image: ${CI_REGISTRY}/traque/ont-docker-base/ont-base-python:3.${PY_MINOR_VER}
+  tags:
+    - linux
+  retry: 1
+  before_script:
+    - python3.${PY_MINOR_VER} -m venv .venv/
+    - source .venv/bin/activate
+  needs:
+    - linux-x64-gcc9-release-build
+    - build-python-api
+  script:
+    - pip install ./lib_pod5*cp3${PY_MINOR_VER}*.whl pod5-*.whl
+    - pod5 convert fast5 ./test_data/ --output ./output_files --one-to-one ./test_data
+    - python3.${PY_MINOR_VER} python/pod5/test_utils/check_pod5_files_equal.py ./output_files/multi_fast5_zip.pod5 ./test_data/multi_fast5_zip_v3.pod5
+    - python3.${PY_MINOR_VER} python/pod5/test_utils/check_pod5_files_equal.py ./output_files/multi_fast5_zip.pod5 ./test_data/multi_fast5_zip_v2.pod5
+    - python3.${PY_MINOR_VER} python/pod5/test_utils/check_pod5_files_equal.py ./output_files/multi_fast5_zip.pod5 ./test_data/multi_fast5_zip_v1.pod5
+    - python3.${PY_MINOR_VER} python/pod5/test_utils/check_pod5_files_equal.py ./output_files/multi_fast5_zip.pod5 ./test_data/multi_fast5_zip_v0.pod5
+    - pod5 convert to_fast5 ./output_files/ --output ./output_files
+    - pod5 convert fast5 ./output_files/*.fast5 --output ./output_files_2 --one-to-one ./output_files/
+    - python3.${PY_MINOR_VER} python/pod5/test_utils/check_pod5_files_equal.py ./output_files/multi_fast5_zip.pod5 ./output_files_2/*.pod5
+  <<: *parallel-py-minor-ver
+
+
+# ======================================
+#
+#     Pytest
+#
+# ======================================
+
+
+.pytest:
+  stage: test
+  retry: 1
+  before_script:
+    - python3 -m venv .venv/
+    - source .venv/bin/activate
+  script:
+    - pip install ./lib_pod5*cp3${PY_MINOR_VER}*.whl pod5-*.whl
+    - pip install pytest pytest-cov pytest-mock
+    - pytest
+
+pytest-linux-x64:
+  extends: [".pytest"]
+  image: ${CI_REGISTRY}/traque/ont-docker-base/ont-base-python:3.${PY_MINOR_VER}
+  tags:
+    - linux
+  needs:
+    - linux-x64-gcc9-release-build
+    - build-python-api
+  <<: *parallel-py-minor-ver
+
+pytest-linux-aarch64:
+  extends: [".pytest"]
+  image: ${CI_REGISTRY}/traque/ont-docker-base/ont-base-python:3.${PY_MINOR_VER}
+  tags:
+    - linux_aarch64
+    - high-cpu
+  needs:
+    - linux-aarch64-gcc9-release-build
+    - build-python-api
+  <<: *parallel-py-minor-ver
+
+.versions-matrix-pyenv-and-venv: &versions-matrix-pyenv-and-venv
+  parallel:
+    matrix:
+      - PY_MINOR_VER: "7"
+        PYTHON_VERSION: "3.7.4"
+      - PY_MINOR_VER: "8"
+        PYTHON_VERSION: "3.8.9"
+      - PY_MINOR_VER: "9"
+        PYTHON_VERSION: "3.9.13"
+      - PY_MINOR_VER: "10"
+        PYTHON_VERSION: "3.10.10"
+      - PY_MINOR_VER: "11"
+        PYTHON_VERSION: "3.11.2"
+
+pytest-osx-x64:
+  extends: [".pytest"]
+  tags:
+    - osx_x86
+    - xcode-12.4
+    - high-cpu
+    - conan
+  needs:
+    - osx-x64-clang12-release-build
+    - build-python-api
+  before_script:
+      # make sure pyenv's shims are on the path
+    - eval "$(pyenv init -)"
+    - if [[ -z $( pyenv install --list | grep "${PYTHON_VERSION}" ) ]]; then brew update && brew upgrade pyenv; fi
+    - pyenv install --skip-existing ${PYTHON_VERSION}
+    - pyenv global ${PYTHON_VERSION}
+    - python --version
+      # with pyenv, we don't have to use `python3` (and `python` also works on Windows)
+    - python -m venv .venv/
+    - source .venv/bin/activate
+    - python -m pip install --upgrade pip
+    - python --version
+  <<: *versions-matrix-pyenv-and-venv
+
+pytest-win-x64:
+  extends: [".pytest"]
+  tags:
+    - windows
+  needs:
+    - win-x64-msvc2017-release-build
+    - build-python-api
+  before_script:
+      # pyenv doesn't live on the PATH by default (and pyenv-win doesn't have `pyenv init`)
+    - export PYENV=~/.pyenv/pyenv-win
+    - export PATH=${PYENV}/bin:${PYENV}/shims:${PATH}
+    # needs PYTHON_VERSION set, and optionally VENV_BIN_DIR
+    - if [[ -z $( pyenv install --list | grep "${PYTHON_VERSION}" ) ]]; then pyenv update; fi
+    - pyenv install --skip-existing ${PYTHON_VERSION}
+    - pyenv global ${PYTHON_VERSION}
+    - python --version
+      # with pyenv, we don't have to use `python3` (and `python` also works on Windows)
+    - python -m venv .venv/
+    - source .venv/Scripts/activate
+    - python -m pip install --upgrade pip
+    - python --version
+  <<: *versions-matrix-pyenv-and-venv
+
+
+# ======================================
+#
+#     Conda Testing
+#
+# ======================================
+
+
+conda_pytest:
+  extends: [".pytest"]
+  image: ${CI_REGISTRY}/minknow/pod5-file-format/conda:latest
+  tags:
+    - linux
+  needs:
+    - linux-x64-gcc9-release-build
+    - build-python-api
+  before_script:
+    - |
+      cat > environment.yml << EOF
+      name: pod5_conda_test
+      channels:
+        - conda-forge
+        - bioconda
+      dependencies:
+        - python=3.${PY_MINOR_VER}
+        - cmake
+        - boost
+        - pyarrow
+        - pip
+      EOF
+    - cat environment.yml
+    - mamba --version
+    - mamba env create -f environment.yml
+    - conda env list
+    # This is a work around for conda init in gitlab
+    - eval "$(conda shell.bash hook)"
+    - conda activate pod5_conda_test
+  <<: *parallel-py-minor-ver
+
+
+# ======================================
+#
+#     Benchmarks
+#
+# ======================================
+
+
+.benchmark:
+  stage: test
+  retry: 1
+  before_script:
+    - python3 -m venv .venv/
+    - source .venv/bin/activate
+  script:
+    - pip install ./${LIB_WHEEL_GLOB} pod5-*.whl
+    - pip install -r ./benchmarks/image/requirements-benchmarks.txt
+    - ./benchmarks/image/install_slow5.sh
+    - export PATH="$(pwd)/slow5tools-v0.5.0/:$PATH"
+    - ./benchmarks/run_benchmarks.py ./test_data/ ./benchmark-outputs
+
+benchmark-linux-x64:
+  extends: [".benchmark"]
+  image: ${CI_REGISTRY}/traque/ont-docker-base/ont-base-python:3.9
+  tags:
+    - linux
+  needs:
+    - linux-x64-gcc9-release-build
+    - build-python-api
+  variables:
+    LIB_WHEEL_GLOB: "lib_pod5*cp39*.whl"
+
+benchmark-linux-aarch64:
+  extends: [".benchmark"]
+  image: ${CI_REGISTRY}/traque/ont-docker-base/ont-base-python:3.9
+  tags:
+    - linux_aarch64
+    - high-cpu
+  needs:
+    - linux-aarch64-gcc9-release-build
+    - build-python-api
+  variables:
+    LIB_WHEEL_GLOB: "lib_pod5*cp39*.whl"
+
+
+# ======================================
+#
+#     Conan
+#
+# ======================================
+
+
+.conan-build-common:
+  retry: 1
+  stage: build-conan
+  dependencies:
+    - "prepare_version"
+  before_script:
+    - conan config install --verify-ssl=no "${CONAN_CONFIG_URL}"
+    - pip3 install 'conan<2'
+    - cat cmake/POD5Version.cmake
+    - VERSIONS="$(cmake -P ci/get_tag_version.cmake 2>&1)"
+    - echo "Found versions ${VERSIONS}"
+
+.conan-upload:
+  extends: .upload-package # from informatics/conan-config
+  stage: deploy
+  only: ["tags"]
+  before_script:
+    - apt update
+    - apt install -y cmake
+    - pip3 install 'conan<2'
+    - cat cmake/POD5Version.cmake
+    - VERSIONS="$(cmake -P ci/get_tag_version.cmake 2>&1)"
+    - echo "Found versions ${VERSIONS}"
+
+.tarball-package-without-macos: &tarball-package-without-macos
+    # This is a copy of tarball-package in conan-config, except it removes macos packages first.
+    # This is used because the iOS builds all copy a MacOS package into their uploads which is
+    # pointless and just wastes space. Normally tarball-package is called from within build-package.
+    # To change this, a caller still extends .build-package, but adds their own after_script
+    # (cannot just modify the one in build-package, it must be completely replaced), and calls
+    # tarball-package-without-macos instead of tarball-package. We can't call the original
+    # tarball-package because it is private to conan-config.
+    #
+    # This also allows us to only archive the package we just built, and not any of its dependencies
+    # (because we can use `conan inspect` to find the name of the right packages).
+    #
+    # Avoid storing things on the CI node unnecessarily
+    - echo "Remove unneeded files"
+    - conan remove "*" --builds --src --force
+    # Remove unneeded MacOS packages
+    - echo "Remove MacOS packages"
+    - conan remove flatbuffers/2.0.0@nanopore/stable -q "os=Macos" --force
+    # Move required packages to a tarball
+    - PACKAGE_DIR="${CONAN_USER_HOME#${PWD}/}/.conan/data/$(conan inspect --raw name ${CONAN_REFERENCE})"
+    - echo "Packing from $PACKAGE_DIR"
+    - tar -czvf "conan-${CI_JOB_ID}.tar.gz" "$PACKAGE_DIR"/*/${CONAN_USER}/${CONAN_CHANNEL}/{package,metadata.json}
+    - rm -rf "${CONAN_USER_HOME}/.conan"
+
+# Conan: build and upload packages:
+build-conan:windows-x86_64-vs2017:
+    extends:
+        - .profile-windows-x86_64-vs2017
+        - .build-package-win
+        - .conan-build-common
+upload-conan:windows-x86_64-vs2017:
+    extends: .conan-upload
+    dependencies: [ "prepare_version", "build-conan:windows-x86_64-vs2017" ]
+
+build-conan:windows-x86_64-vs2019:
+    extends:
+        - .profile-windows-x86_64-vs2019
+        - .build-package-win
+        - .conan-build-common
+upload-conan:windows-x86_64-vs2019:
+    extends: .conan-upload
+    dependencies: [ "prepare_version", "build-conan:windows-x86_64-vs2019" ]
+
+build-conan:macos-x86_64-appleclang-12.0:
+    extends:
+        - .profile-macos-x86_64-appleclang-12.0
+        - .build-package
+        - .conan-build-common
+upload-conan:macos-x86_64-appleclang-12.0:
+    extends: .conan-upload
+    dependencies: [ "prepare_version", "build-conan:macos-x86_64-appleclang-12.0" ]
+
+build-conan:macos-aarch64-appleclang-13.1:
+    extends:
+        - .profile-macos-aarch64-appleclang-13.1
+        - .build-package
+        - .conan-build-common
+upload-conan:macos-aarch64-appleclang-13.1:
+    extends: .conan-upload
+    dependencies: [ "prepare_version", "build-conan:macos-aarch64-appleclang-13.1" ]
+
+build-conan:ios-aarch64-appleclang-13.1:
+    extends:
+        - .profile-iOS-aarch64-appleclang-13.1
+        - .build-package
+        - .conan-build-common
+    variables:
+        EXTRA_CREATE_ARGS: -o:b pod5_file_format:nanopore_internal_build=True -o:h pod5_file_format:nanopore_internal_build=True
+    after_script:
+        - *tarball-package-without-macos
+upload-conan:ios-aarch64-appleclang-13.1:
+    extends: .conan-upload
+    dependencies: [ "prepare_version", "build-conan:ios-aarch64-appleclang-13.1" ]
+
+build-conan:iOSSimulator-aarch64-appleclang-13.1:
+    extends:
+        - .profile-iOSSimulator-aarch64-appleclang-13.1
+        - .build-package
+        - .conan-build-common
+    variables:
+        EXTRA_CREATE_ARGS: -o:b pod5_file_format:nanopore_internal_build=True -o:h pod5_file_format:nanopore_internal_build=True
+    after_script:
+        - *tarball-package-without-macos
+upload-conan:iOSSimulator-aarch64-appleclang-13.1:
+    extends: .conan-upload
+    dependencies: [ "prepare_version", "build-conan:iOSSimulator-aarch64-appleclang-13.1" ]
+
+build-conan:iOSSimulator-x86_64-appleclang-13.1:
+    extends:
+        - .profile-iOSSimulator-x86_64-appleclang-13.1
+        - .build-package
+        - .conan-build-common
+    variables:
+        EXTRA_CREATE_ARGS: -o:b pod5_file_format:nanopore_internal_build=True -o:h pod5_file_format:nanopore_internal_build=True
+    after_script:
+        - *tarball-package-without-macos
+upload-conan:iOSSimulator-x86_64-appleclang-13.1:
+    extends: .conan-upload
+    dependencies: [ "prepare_version", "build-conan:iOSSimulator-x86_64-appleclang-13.1" ]
+
+build-conan:linux-x86_64-gcc9:
+    extends:
+        - .profile-linux-x86_64-gcc9
+        - .build-package
+        - .conan-build-common
+upload-conan:linux-x86_64-gcc9:
+    extends: .conan-upload
+    dependencies: [ "prepare_version", "build-conan:linux-x86_64-gcc9" ]
+
+build-conan:linux-x86_64-gcc11:
+    extends:
+        - .profile-linux-x86_64-gcc11
+        - .build-package
+        - .conan-build-common
+upload-conan:linux-x86_64-gcc11:
+    extends: .conan-upload
+    dependencies: [ "prepare_version", "build-conan:linux-x86_64-gcc11" ]
+
+build-conan:linux-aarch64-gcc7:
+    extends:
+        - .build-package
+        - .profile-linux-aarch64-gcc7
+        - .conan-build-common
+upload-conan:linux-aarch64-gcc7:
+    extends: .conan-upload
+    dependencies: [ "prepare_version", "build-conan:linux-aarch64-gcc7" ]
+
+build-conan:linux-aarch64-gcc9:
+    extends:
+        - .profile-linux-aarch64-gcc9
+        - .build-package
+        - .conan-build-common
+upload-conan:linux-aarch64-gcc9:
+    extends: .conan-upload
+    dependencies: [ "prepare_version", "build-conan:linux-aarch64-gcc9" ]
+
+build-conan:linux-aarch64-gcc11:
+    extends:
+        - .profile-linux-aarch64-gcc11
+        - .build-package
+        - .conan-build-common
+upload-conan:linux-aarch64-gcc11:
+    extends: .conan-upload
+    dependencies: [ "prepare_version", "build-conan:linux-aarch64-gcc11" ]
+
+
+# ======================================
+#
+#     Archive
+#
+# ======================================
+
+
+build-archive:
+  stage: archive
+  needs:
+    - linux-x64-gcc9-release-build
+    - linux-aarch64-gcc9-release-build
+    - linux-aarch64-gcc7-release-build
+    - osx-x64-clang12-release-build
+    - osx-arm64-clang13-release-build
+    - win-x64-msvc2017-release-build
+    - build-python-api
+  script:
+    - find .
+  artifacts:
+    name: "${CI_JOB_NAME}-artifacts"
+    paths:
+      - ./*.tar.gz
+      - ./*.whl
+
+
+# ======================================
+#
+#     Deploy
+#
+# ======================================
+
+
+internal_wheel_upload:
+  stage: deploy
+  image: ${UPLOAD_PYTHON_IMAGE}
+  needs:
+    - build-archive
+  script:
+    - ls -lh .
+    - pip install twine
+    - twine upload *.whl pod5*.tar.gz
+  only: ["tags"]
+  when: manual
+
+external_wheel_upload:
+  stage: deploy
+  image: ${UPLOAD_PYTHON_IMAGE}
+  needs:
+    - build-archive
+  script:
+    - ls -lh .
+    - pip install twine
+    - export TWINE_REPOSITORY_URL=
+    - export TWINE_CERT=
+    - twine upload *.whl pod5*.tar.gz -u"${EXTERNAL_TWINE_USERNAME}" -p"${EXTERNAL_TWINE_PASSWORD}"
+  only: ["tags"]
+  when: manual
+
+
+# ======================================
+#
+#     MLHub Testing
+#
+# ======================================
+
+mlhub:
+  stage: deploy
+  image: ${MLHUB_TRIGGER_IMAGE}
+  needs: ["internal_wheel_upload"]
+  variables:
+    GIT_STRATEGY: none
+  script:
+    - |
+      curl -i --header "Content-Type: application/json" \
+      --request POST \
+      --data '{
+          "key": "'${MLHUB_TRIGGER_KEY}'",
+          "job_name": "POD5-CI '${CI_COMMIT_REF_NAME}' - '"$CI_COMMIT_TITLE"' ",
+          "script_parameters": {
+                "tag":"'${CI_COMMIT_TAG}'",
+                "python_ver":"'${PYTHON_VERSION}'"
+              }
+      }' \
+      ${MLHUB_TRIGGER_URL}
+  only: ["tags"]
+  when: manual
+  parallel:
+    matrix:
+      - PYTHON_VERSION:
+        - "3.7"
+        - "3.11"
+
+
+# ======================================
+#
+#     Pages
+#
+# ======================================
+
+
+pages:
+  stage: deploy
+  image: ${CI_REGISTRY}/traque/ont-docker-base/ont-base-python:3.7
+  needs: []
+  tags:
+    - linux
+  script:
+    - make -f docs/Makefile all
+    - mv _build/html public
+  artifacts:
+    paths:
+      - public
+  when: manual

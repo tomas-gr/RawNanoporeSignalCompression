@@ -1,0 +1,51 @@
+Método,Tasa de compresión (bits/símbolo),Velocidad (MB/s)
+PGNano,6.95871,48.3774
+Rice + Range / Golomb | RLE(15; Range) (10-6),7.10198,57.1402
+Rice + Range / Golomb (5-11),7.13079,81.5154
+Rice + Range / Golomb | RLE(15; Range) (9-7),7.137,67.0539
+Rice + Uniforme / Golomb (5-11),7.15303,339.864
+Rice + Range / Golomb | RLE(15; Range) (8-8),7.15314,57.7556
+Rice + ZSTD / Golomb (5-11),7.16169,7.33436
+Rice + Range / Golomb | RLE(15; Range) (7-9),7.16698,71.3654
+Vbz,7.19872,834.849
+Rice + Range / Golomb (4-12),7.21975,96.7593
+Rice + Uniforme / Golomb,7.22334,297.075
+Rice + Range / Golomb (6-10),7.25368,68.2916
+Rice + Range / Golomb | RLE(15; Range) (6-10),7.31826,76.3711
+Rice + Golomb / Range (8-8),7.32681,187.813
+Rice + Golomb / Range (9-7),7.33178,181.179
+Rice + Golomb / Range (10-6),7.35285,186.998
+Rice + Golomb / Range (11-5),7.35476,191.268
+Rice + Golomb / Range (12-4),7.35591,191.953
+Rice + Golomb / Range (7-9),7.36802,175.149
+Rice + Uniforme / Golomb (6-10),7.38068,381.388
+Rice + Golomb / Range (6-10),7.41532,153.676
+Rice + Golomb / Range (5-11),7.45349,127.31
+Rice + Golomb / Range (4-12),7.55324,107.832
+TurboPFor ZigZag,7.74615,622.356
+Rice + TurboPFor,7.74818,322.96
+Rice + Range / Golomb | RLE(15; Range) (5-11),7.8356,78.5551
+Rice + Uniforme / Golomb | RLE(15; Uniforme) (6-10),7.94399,328.852
+Rice + Range / Golomb | RLE(15; Range) (4-12),8.09915,92.1761
+Rice + Golomb / Uniforme(Empaquetado) (11-5),8.37349,234.869
+Rice + Variable byte,8.44684,403.58
+Rice + Uniforme / Golomb | RLE(15; Uniforme) (5-11),8.59255,260.147
+Rice + Uniforme / Golomb | RLE(15; Uniforme) (4-12),8.82556,251.54
+Rice + Golomb / Uniforme(Empaquetado) (10-6),9.36924,234.671
+Rice + Golomb / Uniforme(Empaquetado) (9-7),10.3118,236.0
+TurboPFor,10.4272,1108.98
+Uniforme / Golomb (6-10),10.9173,462.934
+Golomb (High part) Range (5-11),10.9349,86.0287
+Uniforme / Golomb (5-11),10.9446,395.821
+ZSTD / Golomb (5-11),10.9525,6.52554
+Uniforme / Golomb (4-12),10.9782,346.585
+Rice + Golomb / Uniforme(Empaquetado) (8-8),11.1644,238.3
+Rice + Golomb / Uniforme(Empaquetado) (7-9),11.8937,240.783
+Rice + RLE 9.4.1,12.0227,434.873
+Rice + Golomb / Uniforme(Empaquetado) (6-10),12.336,249.808
+Rice + Golomb / Uniforme(Empaquetado) (5-11),12.4407,267.765
+Rice + Golomb / Uniforme(Empaquetado) (4-12),12.4841,290.965
+Rice + Golomb / Uniforme(Empaquetado) (1-15),12.5004,364.938
+Rice + Golomb / Uniforme(Empaquetado) (3-13),12.5026,317.331
+Rice + Golomb / Uniforme(Empaquetado) (2-14),12.5126,347.634
+Variable byte,15.9992,927.156

@@ -1,0 +1,49 @@
+/*
+* This code is used to copy a POD5 file.
+* Given a POD5 file x and an output destination y, this code
+* Creates an observationally equivalent file x' (to x) in y 
+* With possible different compression methods
+* It's part of the test pipeline.
+* The idea is that given a POD5 file x compressed with VBZ
+* The file is copied to x' with compression PGNano
+* And then x' is copied to x'' with VBZ again
+* This allows us to use the Python API to build observational equivalence tests
+* As the Python API is not built yet to support PGNano compression
+*/
+
+int main
+    curr_dir = get_curr_dir
+    create pore type cache
+    create run info cache
+    parse arguments:
+        parse input file
+        parse output file
+        parse compression type
+    resolve input / output file as absolute paths
+    (POD) init POD5
+    (POD) reader = open input file
+    (POD) writer = create empty output file
+    (POD) read_count = get number of reads
+    (POD) batch_count = get number of read batches
+    
+    (POD) file_run_info_count = get number of run infos in reader
+    # TODO: This loop is after the next loop in copy.cpp. Such behaviour is incorrect. Control flow described here is correct
+    for i in range(0, file_run_info_count):
+        (POD) run_info = read run_info number i
+        (POD) new_idx = add run_info to writer 
+        (POD) add new_idx to cache
+
+    for batch_idx in range(0,batch_count):
+        (POD) current_batch = read read batch on index batch_idx
+        (POD) batch_row_count = get number of reads in current_batch
+        read_record_array[]
+        sample_count_array[]
+        signal_array[]
+        for row_idx in range(0, batch_row_count):
+            (POD) read_record_array[row_idx] = read read row from read record batch #TODO: Change names in copy.cpp
+            (POD) sample_count_array[row_idx] = read sample count for this row from read record batch
+            (POD) signal_array[row_idx] = read signal for this row from read record batch
+        (POD + Wrapper) flattened_array[] = flatten_array(read_record_array, current_batch, writer)
+        (POD) add read data contained in flattened_array to writer
+
+        

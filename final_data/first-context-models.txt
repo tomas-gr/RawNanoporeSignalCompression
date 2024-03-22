@@ -1,0 +1,57 @@
+CppModel (whole signal): 7.120616539418813
+VbzModel (whole signal): 7.405892397203091
+EvenOddTimestepCodingModel (whole signal): 7.160258178743249
+EvenOddDerivativeCodingModel (whole signal): 7.160139380420025
+StabilitySeparatorModel (whole signal): 7.940840501702506
+DerivativeContextModel (whole signal): 7.129758398358386
+DerivativeContextModel2-[3] (whole signal): 7.146474045786795
+DerivativeContextModel4-[3] (whole signal): 7.173588642954945
+DerivativeContextModel2-[5] (whole signal): 7.144468499785942
+DerivativeContextModel4-[5] (whole signal): 7.173788670988684
+DerivativeContextModel2-[5, 3] (whole signal): 7.170233402060146
+DerivativeContextModel4-[5, 3] (whole signal): 7.2131882315889495
+DerivativeContextModel2-[10, 5, 3] (whole signal): 7.191658020683993
+DerivativeContextModel4-[10, 5, 3] (whole signal): 7.255345002144587
+CppModel (chunked signal): 7.127475719987198
+VbzModel (chunked signal): 7.406242051230444
+EvenOddTimestepCodingModel (chunked signal): 7.176744100428947
+EvenOddDerivativeCodingModel (chunked signal): 7.176682279610011
+StabilitySeparatorModel (chunked signal): 7.954169460519213
+DerivativeContextModel (chunked signal): 7.145578223949267
+DerivativeContextModel2-[3] (chunked signal): 7.161205303200715
+DerivativeContextModel4-[3] (chunked signal): 7.201893214009808
+DerivativeContextModel2-[5] (chunked signal): 7.1600818317168775
+DerivativeContextModel4-[5] (chunked signal): 7.203436157219632
+DerivativeContextModel2-[5, 3] (chunked signal): 7.191701755648036
+DerivativeContextModel4-[5, 3] (chunked signal): 7.252241334820129
+DerivativeContextModel2-[10, 5, 3] (chunked signal): 7.221266599261469
+DerivativeContextModel4-[10, 5, 3] (chunked signal): 7.307276747398483
+==== Whole file ====
+CppModel (whole signal): 7.111706345241177
+VbzModel (whole signal): 7.40003364227046
+EvenOddTimestepCodingModel (whole signal): 7.146420740655483
+EvenOddDerivativeCodingModel (whole signal): 7.146327261955129
+StabilitySeparatorModel (whole signal): 7.931595298335969
+DerivativeContextModel (whole signal): 7.11559386393826
+DerivativeContextModel2-[3] (whole signal): 7.133451492951723
+DerivativeContextModel4-[3] (whole signal): 7.153115500843877
+DerivativeContextModel2-[5] (whole signal): 7.131040480419787
+DerivativeContextModel4-[5] (whole signal): 7.152457955642823
+DerivativeContextModel2-[5, 3] (whole signal): 7.153892050303075
+DerivativeContextModel4-[5, 3] (whole signal): 7.187839430362135
+DerivativeContextModel2-[10, 5, 3] (whole signal): 7.171400604050297
+DerivativeContextModel4-[10, 5, 3] (whole signal): 7.223855718775054
+CppModel (chunked signal): 7.113610097103676
+VbzModel (chunked signal): 7.389829638289934
+EvenOddTimestepCodingModel (chunked signal): 7.162066028176183
+EvenOddDerivativeCodingModel (chunked signal): 7.161938953154666
+StabilitySeparatorModel (chunked signal): 7.946219271679419
+DerivativeContextModel (chunked signal): 7.1297964459921745
+DerivativeContextModel2-[3] (chunked signal): 7.146509590722495
+DerivativeContextModel4-[3] (chunked signal): 7.18458556969159
+DerivativeContextModel2-[5] (chunked signal): 7.145307198122496
+DerivativeContextModel4-[5] (chunked signal): 7.18584640454793
+DerivativeContextModel2-[5, 3] (chunked signal): 7.176211083215135
+DerivativeContextModel4-[5, 3] (chunked signal): 7.233664475230493
+DerivativeContextModel2-[10, 5, 3] (chunked signal): 7.2051016311596365
+DerivativeContextModel4-[10, 5, 3] (chunked signal): 7.287383385578133

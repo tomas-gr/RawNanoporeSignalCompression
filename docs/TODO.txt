@@ -1,0 +1,7 @@
+boost::apply_visitor(visitors::append_signal{signal, m_pool, read_data, is_last_batch}, m_signal_builder));
+signal_table_writer.cpp@225
+write_batch
+
+Explicar batches;
+Explicar builders;
+Explicar arrow arrays y 0 copy

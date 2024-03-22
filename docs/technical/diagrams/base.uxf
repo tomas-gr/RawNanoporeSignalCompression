@@ -1,0 +1,25 @@
+<diagram program="umletino" version="15.1"><zoom_level>10</zoom_level><element><id>UMLGeneric</id><coordinates><x>697</x><y>100</y><w>200</w><h>100</h></coordinates><panel_attributes>symbol=component
+PGNano - C Sources
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>67</x><y>100</y><w>200</w><h>100</h></coordinates><panel_attributes>symbol=component
+PGNano - Python Sources</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>397</x><y>610</y><w>200</w><h>60</h></coordinates><panel_attributes>symbol=component
+POD5 - Python API</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>67</x><y>350</y><w>200</w><h>60</h></coordinates><panel_attributes>symbol=component
+POD5 (pip / Python only)</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>157</x><y>190</y><w>50</w><h>90</h></coordinates><panel_attributes>lt=)-
+</panel_attributes><additional_attributes>20;60;20;10</additional_attributes></element><element><id>Relation</id><coordinates><x>167</x><y>260</y><w>30</w><h>110</h></coordinates><panel_attributes>lt=-()
+</panel_attributes><additional_attributes>10;90;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>787</x><y>310</y><w>30</w><h>150</h></coordinates><panel_attributes>lt=-()
+
+</panel_attributes><additional_attributes>10;130;10;10</additional_attributes></element><element><id>UMLPackage</id><coordinates><x>357</x><y>380</y><w>620</w><h>340</h></coordinates><panel_attributes>POD5 (PGNANO)</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>697</x><y>440</y><w>200</w><h>60</h></coordinates><panel_attributes>symbol=component
+POD5 - C API</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>697</x><y>610</y><w>200</w><h>60</h></coordinates><panel_attributes>symbol=component
+POD5 - C++ CoreLib</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>777</x><y>190</y><w>50</w><h>140</h></coordinates><panel_attributes>lt=)-
+m1=
+
+</panel_attributes><additional_attributes>20;110;20;10</additional_attributes></element><element><id>Relation</id><coordinates><x>777</x><y>490</y><w>50</w><h>90</h></coordinates><panel_attributes>lt=)-
+m1=
+
+</panel_attributes><additional_attributes>20;60;20;10</additional_attributes></element><element><id>Relation</id><coordinates><x>787</x><y>560</y><w>30</w><h>70</h></coordinates><panel_attributes>lt=-()
+
+</panel_attributes><additional_attributes>10;50;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>587</x><y>620</y><w>80</w><h>50</h></coordinates><panel_attributes>lt=)-
+m1=
+
+</panel_attributes><additional_attributes>50;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>647</x><y>620</y><w>70</w><h>50</h></coordinates><panel_attributes>lt=-()
+
+</panel_attributes><additional_attributes>50;20;10;20</additional_attributes></element></diagram>

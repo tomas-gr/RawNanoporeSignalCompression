@@ -1,0 +1,1 @@
+OUT_PATH="/data/pgnanoraw/pod5_fork/final_data/"

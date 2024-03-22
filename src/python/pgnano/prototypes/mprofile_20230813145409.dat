@@ -1,0 +1,4 @@
+CMDLINE /data/pgnanoraw/pod5_fork/pod5/python/pod5/venv/bin/python index_bam.py
+MEM 0.644531 1691949249.0767
+MEM 32.292969 1691949249.1770
+MEM 50.441406 1691949249.2773

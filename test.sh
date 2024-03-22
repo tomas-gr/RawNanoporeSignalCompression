@@ -1,0 +1,1 @@
+clear && ./build.sh c clean release && clear && ./debug.py reg standalone all && ./debug.py reg copy all

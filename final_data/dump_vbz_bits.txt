@@ -1,0 +1,18 @@
+all:
+    Integrated: 6.661142805770984
+    Standalone: 6.649669289833833
+10.4.1:
+    Integrated: 7.16597474109
+    Standalone: 7.150820705887757
+Human:
+    Integrated: 7.267387322647509
+    Standalone: 7.250441361088695
+Fly:
+    Integrated: 7.057318403706956
+    Standalone: 7.044084289601037
+10.3:
+    Integrated: 7.104500656533093
+    Standalone: 7.088430342239607
+9.4.1:
+    Integrated: 5.27133373677625
+    Standalone: 5.271266236550859

@@ -1,0 +1,28 @@
+[build-system]
+requires = [
+  "setuptools >= 61.0",
+  "wheel",
+  "setuptools_scm[toml]>=6.2",
+]
+build-backend = "setuptools.build_meta"
+
+
+[project]
+name = "pgnano"
+authors = [{name="Rafael C. Ottati", email="rafael.castelli.ottati@fing.edu.uy"}]
+readme = "README.md"
+requires-python = "~= 3.7"
+dynamic = ["version"]
+description="PGNano"
+
+keywords = ['nanopore']
+
+classifiers=[
+    'Environment :: Console',
+    'Intended Audience :: Developers',
+    'Intended Audience :: Science/Research',
+    'License :: OSI Approved :: Mozilla Public License 2.0 (MPL 2.0)',
+    'Natural Language :: English',
+    'Programming Language :: Python :: 3',
+    'Topic :: Scientific/Engineering :: Bio-Informatics',
+]

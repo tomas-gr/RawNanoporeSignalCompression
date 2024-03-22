@@ -1,0 +1,15 @@
+Metadata-Version: 2.1
+Name: pgnano
+Version: 0.0.0
+Summary: PGNano
+Author-email: "Rafael C. Ottati" <rafael.castelli.ottati@fing.edu.uy>
+Keywords: nanopore
+Classifier: Environment :: Console
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: Mozilla Public License 2.0 (MPL 2.0)
+Classifier: Natural Language :: English
+Classifier: Programming Language :: Python :: 3
+Classifier: Topic :: Scientific/Engineering :: Bio-Informatics
+Requires-Python: ~=3.7
+Description-Content-Type: text/markdown

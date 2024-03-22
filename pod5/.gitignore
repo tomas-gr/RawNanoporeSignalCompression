@@ -1,0 +1,12 @@
+build*/
+_build/
+dist/
+.DS_Store
+.pod5
+venv/
+docs/public/
+.tmp_pod5*
+_version.py
+*egg-info/
+POD5Version.cmake
+__pycache__

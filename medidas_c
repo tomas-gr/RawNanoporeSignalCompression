@@ -1,0 +1,7 @@
+No contextualizado -> Macro average compression ratio: 6.460565391499549 bits/sample
+Contextualizado con signo -> Macro average compression ratio: 6.438557975683603 bits/sample 
+
+
+Un sustito:
+Vbz: 6.93246 bits/symbol at speed: 4957.61MB/s
+PGNano: 6.69578 bits/symbol at speed: 391.895MB/s

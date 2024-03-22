@@ -1,0 +1,478 @@
+<diagram program="umletino" version="15.1"><zoom_level>1</zoom_level><help_text></help_text><element><id>UMLClass</id><coordinates><x>405</x><y>205</y><w>20</w><h>5</h></coordinates><panel_attributes>FileReaderOptions
+--
+max_cached_signal_table_batches</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLPackage</id><coordinates><x>313</x><y>202</y><w>75</w><h>38</h></coordinates><panel_attributes>TODO
+group=group-7</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>386</x><y>286</y><w>70</w><h>47</h></coordinates><panel_attributes>FileReader
+--
+# Description
+This class ONLY centralizes access to other readers. It does no other work than delegating request 
+to other readers, which in turn do not know each other.
+That is, FileReader knows each specialized reader, but no specialized reader
+knows other readers. For instances, SignalTableReader does not know ReadTableReader
+
+It also initializes all readers given a file path.
+--
+# Properties
+- RunInfoTableReader run_info_table_reader
+- ReadTableReader read_table_reader
+- SignalTable reader signal_table_reader
+--
+# Methods
+SchemaMetadataDescription schema_metadata()
+int read_count()
+ReadTableRecordBatch read_read_record_batch(int batch_index)
+int num_read_record_batches()
+int search_for_read_ids(ReadIdSearchInput s, OUT uint32_t[] batch_counts, OUT uint32_t batch_rows)
+SignalTableRecordBatch read_signal_record_batch(int batch_index)
+int num_signal_record_batches()
+int signal_batch_for_row_id(int row, int batch_row) # Given an absolute row, return the row of the signal inside it's batch
+int extract_sample_count(int[] row_indices)
+void extract_samples(int[] row_indices, OUT int16_t[] output_samples) # Reads samples from file
+bytes[][] extract_samples_inplace(int[] row_indices, int[] sample_count) # Return compressed signal
+SignalType signal_type() # [UncompressedSignal | VBZSignal | PGNanoSignal]
+RunInfoData find_run_info(string run_info_id)
+RunInfoData get_run_info(int run_info_index)
+int get_run_info_count()
+FileReader open_file_reader(string path, FileReaderOptions options)</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>406</x><y>212</y><w>29</w><h>7</h></coordinates><panel_attributes>struct SchemaMetadataDescription
+    uuid file_identifier;
+    string writing_software;
+    Version writing_pod5_version;</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>376</x><y>226</y><w>10</w><h>2</h></coordinates><panel_attributes>ReadRecordBatch
+group=group-7</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>376</x><y>228</y><w>10</w><h>2</h></coordinates><panel_attributes>RunRecordBatch
+group=group-7</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>376</x><y>230</y><w>10</w><h>2</h></coordinates><panel_attributes>SignalRecordBatch
+group=group-7</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>376</x><y>232</y><w>10</w><h>2</h></coordinates><panel_attributes>SignalType
+group=group-7</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>313</x><y>290</y><w>59</w><h>9</h></coordinates><panel_attributes>ReadTableReader
+--
+# Methods
+int search_for_read_ids(ReadIdSearchInput s, OUT uint32_t[] batch_counts, OUT uint32_t batch_rows)
+ReadTableRecordBatch read_record_batch(int batch_index)</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>206</x><y>280</y><w>37</w><h>18</h></coordinates><panel_attributes>TableReader
+--
+# Description 
+Common methods for all readers
+--
+# Notes for children:
+Each reader will only know it's specific type of batch.
+That is, SignalTableReader only knows SignalTableRecordBatch
+--
+# Methods
+int num_record_batches()
+Arrow::IPC::RecordBatchFileReader reader()</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>242</x><y>288</y><w>73</w><h>9</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>710;70;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>353</x><y>212</y><w>33</w><h>2</h></coordinates><panel_attributes>Explicar estructura de datos de arrow
+group=group-7</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>353</x><y>215</y><w>33</w><h>2</h></coordinates><panel_attributes>Explicar estructura de archivo pod5
+group=group-7</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>376</x><y>224</y><w>10</w><h>2</h></coordinates><panel_attributes>TableRecordBatch
+group=group-7</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>271</x><y>306</y><w>40</w><h>9</h></coordinates><panel_attributes>RunInfoTableReader
+--
+# Methods
+RunInfoData find_run_info(string run_info_id)
+RunInfoData get_run_info(int run_info_index)
+RunInfoTableRecordBatch read_record_batch(int batch_index)</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>242</x><y>288</y><w>31</w><h>24</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>290;220;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>209</x><y>321</y><w>70</w><h>18</h></coordinates><panel_attributes>SignalTableReader
+--
+# Methods
+SignalTableRecordBatch read_record_batch(int batch_index)
+int signal_batch_for_row_id(int row, OUT int batch_row) # TODO: explain
+int extract_sample_count(int[] row_indices)
+void extract_samples(int[] row_indices, OUT int16_t[] output_samples) # Decompress signal as part of extraction.   
+# Actual decompression is called here
+# Client must know the uncompressed signal length using extract_sample_count 
+bytes [][] extract_samples_inplace(int[] row_indices, OUT int[] sample_count) # Extract samples without decompressing. 
+# ie get samples exactly as written in the arrow table </panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>242</x><y>288</y><w>11</w><h>35</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>90;330;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>275</x><y>400</y><w>38</w><h>14</h></coordinates><panel_attributes>TableRecordBatch
+--
+# Notes for children:
+* x_column() recovers the values of type x in all the batch.
+For instance signal_column() recovers al signal data 
+from this batch as an array of signals (one per row in the array)
+--
+# Methods
+int num_rows()
+arrow::RecordBatch batch()</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>330</x><y>363</y><w>43</w><h>16</h></coordinates><panel_attributes>ReadTableRecordBatch
+--
+# Methods
+UUID[] read_id_column()
+List[] signal_column()
+string get_pore_type(int pore_dictionary_index)
+(ReadEndReason, string) get_end_reson(int end_reason_dictionary_index)
+string get_run_info(int run_info_dictionary_index)
+ReadTableRecordColumns columns()
+int[] get_signal_rows(int batch_row)</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>353</x><y>218</y><w>33</w><h>2</h></coordinates><panel_attributes>Visitors
+group=group-7</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>208</x><y>364</y><w>64</w><h>17</h></coordinates><panel_attributes>SignalTableRecordBatch
+--
+# Methods
+UUID[] read_id_column()
+arrow::LargeListArray uncompressed_signal_column()
+VbzSignalArray vbz_signal_column()
+PGNanoSignalArray pgnano_signal_column()
+UInt32Array samples_column()
+int samples_byte_count(int row_index_in_batch)
+void extract_signal_row(int row_index_in_batch, OUT int16_t[] samples) # Actual decompression happens here
+bytes[][] extract_signal_row_inplace(int row_index_in_batch) # Don't decompress</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>283</x><y>367</y><w>24</w><h>6</h></coordinates><panel_attributes>RunInfoTableRecordBatch
+--
+# Methods
+RunInfoTableRecordColumns columns()</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>293</x><y>378</y><w>60</w><h>24</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>580;10;10;220</additional_attributes></element><element><id>Relation</id><coordinates><x>244</x><y>380</y><w>52</w><h>22</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;500;200</additional_attributes></element><element><id>Relation</id><coordinates><x>293</x><y>372</y><w>4</w><h>30</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>20;10;10;280</additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>188</x><y>434</y><w>88</w><h>16</h></coordinates><panel_attributes>&lt;&lt;source file&gt;&gt;
+pgnano.h
+--
+# Description
+Exposes the API to POD5
+Also acts as an adapter between 
+POD5 and pgnano's functions 
+--
+# Funtions
+pod5::Status decompress_signal(span&lt;uint8_t&gt; compressed_bytes, arrow::MemoryPool pool, OUT span&lt;int16_t&gt; destination)
+arrow::Result&lt;std::shared_ptr&lt;arrrow::Buffer&gt;&gt; compress_signal(span&lt;int16_t&gt; samples, arrow::MemoryPool pool, ReadData read_data, bool is_last_batch)</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>480</x><y>216</y><w>64</w><h>36</h></coordinates><panel_attributes>symbol=component
+PGNano
+group=group-3</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>355</x><y>224</y><w>10</w><h>2</h></coordinates><panel_attributes>ReadData
+group=group-7</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>204</x><y>472</y><w>56</w><h>13</h></coordinates><panel_attributes>Compressor
+--
+# Members
+RangeCoder m_range_coder
+ContextClass&lt;0,true&gt; m_ctx_class;
+--
+# Methods
+void reset()
+void compress(ReadData read_data, size_t sample_count, int16_t * samples, uint8_t * destination)</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>150</x><y>515</y><w>41</w><h>9</h></coordinates><panel_attributes>&lt;&lt;template&gt;&gt;
+ContextClass&lt;unsigned model_order, bool diferential_model&gt;
+--
+# Description 
+Used  to build nth order (possibly diferential) context 
+based on Model abstraction
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>214</x><y>516</y><w>33</w><h>16</h></coordinates><panel_attributes>&lt;&lt;bind&gt;&gt;
+ContextClass&lt;0, bool true&gt;
+--
+# Members
+uint16_t m_previous_symbol
+Model m_model
+--
+# Methods
+void encode_symbol(RangeCoder * rc, uint16_t symbol)
+uint16_t decode_symbol(RangeCoder * rc)
+void reset()</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>214</x><y>544</y><w>33</w><h>21</h></coordinates><panel_attributes>Model
+--
+# Description
+Order 1 model abstraction used on top of
+G.Dufort's extention of fqzcomp's SIMPLE_MODEL
+--
+# Methods
+void reset()
+void encode_symbol(RangeCoder *rc, uint16_t sym)
+uint16_t decpde_symbol(RangeCoder *rc)
+void encode_binary(RangeCoder *rc, uint8_t sym)
+uint8_t decode_binary(RangeCoder *rc)
+--
+# Members
+SIMPLE_MODEL&lt;MAX_SYMBOLS&gt; m_model</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLPackage</id><coordinates><x>496</x><y>183</y><w>56</w><h>23</h></coordinates><panel_attributes>thrid_party
+group=group-2</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLPackage</id><coordinates><x>502</x><y>190</y><w>44</w><h>11</h></coordinates><panel_attributes>fqzcomp
+group=group-2</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>210</x><y>573</y><w>45</w><h>30</h></coordinates><panel_attributes>&lt;&lt;struct&gt;&gt;
+SIMPLE_MODEL
+--
+# Methods
+void reset();
+void encodeSymbol(RangeCoder *rc, uint16_t sym, bool update, bool order);
+void encodeSymbolBinary(RangeCoder *rc, uint8_t sym);
+void encodeSymbolRegular(RangeCoder *rc, uint16_t sym);
+void encodeSymbolOrder(RangeCoder *rc, uint16_t sym);
+void encodeSymbolNoUpdate(RangeCoder *rc, uint16_t sym);
+void updateModelAccFrecs(bool decode);
+int compare(const void *a, const void *b);
+void mix_array(void **models, unsigned char len);
+uint16_t decodeSymbol(RangeCoder *rc, bool update, bool order);
+uint8_t decodeSymbolBinary(RangeCoder *rc);
+uint16_t decodeSymbolRegular(RangeCoder *rc);
+uint16_t decodeSymbolOrder(RangeCoder *rc);
+uint16_t decodeSymbolNoUpdate(RangeCoder *rc);
+void normalize();
+void print_model();
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>282</x><y>513</y><w>36</w><h>33</h></coordinates><panel_attributes>RangeCoder
+--
+# Methods
+void input(char *in)
+void output(char *out)
+char *input(void)
+char *output(void)
+int size_out(void)
+int size_in(void)
+void StartEncode(void)
+void StartEncodeBinary(void)
+void StartDecode(void)
+void StartDecodeBinary(void)
+void FinishEncode(void)
+void FinishEncodeBinary(void)
+void FinishDecode(void)
+void FinishDecodeBinary(void)
+void Encode(uint32_t cumFreq, uint32_t freq, uint32_t totFreq)
+void EncodeBinary(uint8_t sym)
+uint32_t GetFreq(uint32_t totFreq)
+void Decode(uint32_t cumFreq, uint32_t freq)
+int8_t DecodeBinary()</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>190</x><y>517</y><w>25</w><h>4</h></coordinates><panel_attributes>lt=&lt;&lt;-
+instantiates template &gt;</panel_attributes><additional_attributes>240;20;11;20</additional_attributes></element><element><id>Relation</id><coordinates><x>371</x><y>291</y><w>17</w><h>5</h></coordinates><panel_attributes>lt=&lt;-
+m1=1
+m2=1
+&lt; owns</panel_attributes><additional_attributes>10;20;150;20</additional_attributes></element><element><id>Relation</id><coordinates><x>310</x><y>309</y><w>78</w><h>5</h></coordinates><panel_attributes>lt=&lt;-
+m1=1
+m2=1
+&lt; owns</panel_attributes><additional_attributes>10;20;760;20</additional_attributes></element><element><id>Relation</id><coordinates><x>278</x><y>327</y><w>110</w><h>5</h></coordinates><panel_attributes>lt=&lt;-
+m1=1
+m2=1
+&lt; owns</panel_attributes><additional_attributes>10;20;1080;20</additional_attributes></element><element><id>Relation</id><coordinates><x>241</x><y>338</y><w>4</w><h>28</h></coordinates><panel_attributes>lt=&lt;-
+m1=n
+m2=1</panel_attributes><additional_attributes>10;260;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>296</x><y>314</y><w>4</w><h>55</h></coordinates><panel_attributes>lt=&lt;-
+m1=n
+m2=1</panel_attributes><additional_attributes>10;530;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>346</x><y>298</y><w>5</w><h>67</h></coordinates><panel_attributes>lt=&lt;-
+m1=n
+m2=1</panel_attributes><additional_attributes>20;650;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>232</x><y>380</y><w>3</w><h>56</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>10;540;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>235</x><y>449</y><w>3</w><h>25</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>10;230;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>233</x><y>484</y><w>3</w><h>34</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>11;320;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>229</x><y>531</y><w>4</w><h>15</h></coordinates><panel_attributes>lt=&lt;-
+m2=1
+m1=1</panel_attributes><additional_attributes>10;130;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>229</x><y>564</y><w>4</w><h>11</h></coordinates><panel_attributes>lt=&lt;-
+m2=1
+m1=1</panel_attributes><additional_attributes>10;90;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>241</x><y>484</y><w>43</w><h>38</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>410;360;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>246</x><y>522</y><w>38</w><h>8</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>360;60;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>246</x><y>536</y><w>38</w><h>19</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>360;10;10;170</additional_attributes></element><element><id>Relation</id><coordinates><x>254</x><y>540</y><w>30</w><h>43</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>280;10;10;410</additional_attributes></element><element><id>UMLClass</id><coordinates><x>505</x><y>194</y><w>15</w><h>4</h></coordinates><panel_attributes>&lt;&lt;struct&gt;&gt;
+SIMPLE_MODEL
+
+group=group-2</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>524</x><y>195</y><w>15</w><h>3</h></coordinates><panel_attributes>RangeCoder
+
+group=group-2</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>803</x><y>176</y><w>14</w><h>8</h></coordinates><panel_attributes>symbol=component
+PGNano</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>491</x><y>223</y><w>16</w><h>5</h></coordinates><panel_attributes>&lt;&lt;source file&gt;&gt;
+pgnano.h
+
+group=group-3</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>494</x><y>234</y><w>11</w><h>4</h></coordinates><panel_attributes>Compressor
+
+group=group-3</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>512</x><y>233</y><w>25</w><h>5</h></coordinates><panel_attributes>&lt;&lt;bind&gt;&gt;
+ContextClass&lt;0, bool true&gt;
+
+group=group-3</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>493</x><y>241</y><w>41</w><h>5</h></coordinates><panel_attributes>&lt;&lt;template&gt;&gt;
+ContextClass&lt;unsigned model_order, bool diferential_model&gt;
+
+
+group=group-3</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>517</x><y>223</y><w>13</w><h>3</h></coordinates><panel_attributes>Model
+
+group=group-3</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>550</x><y>299</y><w>64</w><h>29</h></coordinates><panel_attributes>FileWriter
+--
+# Description
+Centralizes access to file writing. 
+Most of the word is done by m_imp and this class just exposes the same API doing dummy calls
+--
+# Members
+FileWriterImpl m_imp
+--
+# Methods
+void close();
+void add_complete_read(ReadData read_data, int16_t[] signal);
+/// \brief Add a complete with rows already pre appended.
+void add_complete_read(ReadData read_data, uint64_t[] signal_rows, uint64_t signal_duration);
+SignalTableRowIndex[] add_signal(ReadData read_id, int16_t[] signal);
+SignalTableRowIndex add_pre_compressed_signal(uuid read_id, uint8_t[] signal_bytes, uint32_t sample_count);
+// Find or create an end reason index representing this read end reason.
+EndReasonDictionaryIndex lookup_end_reason(ReadEndReason end_reason);
+PoreDictionaryIndex add_pore_type(string pore_type_data);
+RunInfoDictionaryIndex add_run_info(RunInfoData run_info_data);
+SignalType signal_type() const;
+FileWriterImpl * impl()</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>625</x><y>301</y><w>46</w><h>16</h></coordinates><panel_attributes>FileWriterOptions
+--
+# Members
+ThreadPool m_writer_thread_pool
+int m_max_signal_chunk_size
+arrow::MemoryPool * m_memory_pool
+SignalType m_signal_type
+int m_signal_table_batch_size
+int m_read_table_batch_size
+int m_run_info_table_batch_size</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>581</x><y>449</y><w>23</w><h>10</h></coordinates><panel_attributes>&lt;&lt;struct&gt;&gt;
+DictionaryWriters
+--
+EndReasonWriter end_reason_writer
+PoreWriter pore_writer
+RunInfoWriter run_info_writer</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>565</x><y>335</y><w>56</w><h>40</h></coordinates><panel_attributes>FileWriterImpl
+--
+# Description
+Centralizes access to different writers
+Adds runtime checks
+Mainly calls other writers to implement table specific logic.
+It might interleave calls to different writers and do some basic comversions and loops
+using inner writer calls
+--
+# Members
+DictionaryWriters m_read_table_dict_writers
+RunInfoTableWriter m_run_info_table_writer
+ReadTableWriter m_read_table_writer
+SignalTableWriter m_signal_table_writer
+int m_signal_chunk_size;m_run_info_table_batch_size
+--
+# Methods
+EndReasonDictionaryIndex lookup_end_reason(ReadEndReason end_reason)
+PoreDictionaryIndex add_pore_type(string pore_type_data)
+RunInfoDictionaryIndex add_run_info(RunInfoData run_info_data)
+void add_complete_read(ReadData read_data, int16_t[]  signal)
+void add_complete_read(ReadData const &amp; read_data, uint64_t[] signal_rows, int signal_duration)
+SignalTableRowIndex[] add_signal(ReadData read_data, int16_t[] signal)
+int add_pre_compressed_signal(uuid read_id, uint8_t[] signal_bytes, int sample_count)
+SignalType signal_type()
+RunInfoTableWriter * run_info_table_writer()
+ReadTableWriter * read_table_writer()
+SignalTableWriter * signal_table_writer()
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>537</x><y>340</y><w>16</w><h>5</h></coordinates><panel_attributes>CombinedFileWriterImpl
+--
+# Manages temp files</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>552</x><y>342</y><w>15</w><h>3</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;130;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>335</x><y>219</y><w>10</w><h>3</h></coordinates><panel_attributes>RunInfoData
+bg=red
+group=group-7</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>335</x><y>224</y><w>10</w><h>3</h></coordinates><panel_attributes>RunInfoTableWriter
+bg=red
+group=group-7</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>335</x><y>228</y><w>10</w><h>3</h></coordinates><panel_attributes>ReadTableWriter
+bg=red
+
+group=group-7</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>451</x><y>392</y><w>62</w><h>42</h></coordinates><panel_attributes>SignalTableWriter
+--
+# Notes
+This writer uses visitors extensively. The visitors are
+parameterized on SignalBuilderVariant, which specializes
+different methods for each signal type
+--
+# Members
+arrow::recordBatchWriter m_writer
+arrow::Shema m_schema
+SignalBuilderVariant m_signal_builder
+SignalTableSchemaDescription m_field_locations
+int m_table_batch_size
+arrow::FixedSizeBinaryBuilder m_read_id_builder
+arrow::UInt32Builder m_samples_builder
+int m_written_batched_row_count
+int m_current_batch_row_count
+--
+# Methods
+# /// \brief Add a read to the signal table, adding to the current batch
+int add_signal(ReadData read_data, int16_t[] signal, bool is_last_batch) # TODO: rename to is_last_chunk
+# add_signal actually compresses the signal by calling visitors
+    int add_pre_compressed_signal(uuid read_id, uint8_t signal, int sample_count)
+int add_pre_compressed_signal(uuid read_id, uint8_t signal, int sample_count)
+Status close()
+SignalType signal_type()
+/// \brief Reserve space for future row writes, called automatically when a flush occurs.
+Status reserve_rows()
+arrow::Schema schema()
+/// \brief Flush passed data into the writer as a record batch.
+Status write_batch(arrow::RecordBatch record_batch)
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>357</x><y>419</y><w>23</w><h>7</h></coordinates><panel_attributes>&lt;&lt;struct&gt;&gt;
+UncompressedSignalBuilder
+--
+arrow::Int16Builder signal_data_builder
+arrow::LargeListBuilder signal_builder
+group=group-5</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>385</x><y>419</y><w>13</w><h>8</h></coordinates><panel_attributes>&lt;&lt;struct&gt;&gt;
+VbzSignalBuilder
+--
+int[] offset_values
+uint8_t data_values
+group=group-5</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>404</x><y>431</y><w>14</w><h>8</h></coordinates><panel_attributes>&lt;&lt;struct&gt;&gt;
+PGNanoSignalBuilder
+--
+int[] offset_values
+uint8_t data_values
+group=group-5</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>335</x><y>215</y><w>10</w><h>3</h></coordinates><panel_attributes>ReadData
+bg=red
+group=group-7</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>322</x><y>220</y><w>10</w><h>3</h></coordinates><panel_attributes>ArrowBuilders
+bg=red
+group=group-7</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>322</x><y>211</y><w>10</w><h>7</h></coordinates><panel_attributes>Arrow RecordBatch
+bg=red
+group=group-7</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>322</x><y>225</y><w>10</w><h>3</h></coordinates><panel_attributes>arrow table
+bg=red
+group=group-7</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>322</x><y>229</y><w>10</w><h>3</h></coordinates><panel_attributes>arrow schema
+bg=red
+group=group-7</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>316</x><y>233</y><w>16</w><h>3</h></coordinates><panel_attributes>General arrow description
+bg=red
+group=group-7</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>383</x><y>395</y><w>16</w><h>6</h></coordinates><panel_attributes>&lt;&lt;variant&gt;&gt;
+SignalBuilderVariant
+group=group-5</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>369</x><y>400</y><w>23</w><h>21</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=1
+m2=1
+group=group-5</panel_attributes><additional_attributes>210;10;10;190</additional_attributes></element><element><id>Relation</id><coordinates><x>389</x><y>400</y><w>4</w><h>21</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=1
+m2=1
+group=group-5</panel_attributes><additional_attributes>20;10;10;190</additional_attributes></element><element><id>Relation</id><coordinates><x>393</x><y>400</y><w>20</w><h>33</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=1
+m2=1
+
+group=group-5</panel_attributes><additional_attributes>10;10;180;310</additional_attributes></element><element><id>Relation</id><coordinates><x>379</x><y>408</y><w>14</w><h>4</h></coordinates><panel_attributes>lt=.
+&lt;&lt;XOR&gt;&gt;
+group=group-5</panel_attributes><additional_attributes>10;20;120;20</additional_attributes></element><element><id>Relation</id><coordinates><x>390</x><y>409</y><w>12</w><h>5</h></coordinates><panel_attributes>lt=.
+&lt;&lt;XOR&gt;&gt;
+group=group-5</panel_attributes><additional_attributes>10;10;100;30</additional_attributes></element><element><id>UMLPackage</id><coordinates><x>431</x><y>462</y><w>126</w><h>69</h></coordinates><panel_attributes>&lt;&lt;namespace&gt;&gt;
+visitors
+group=group-1</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>481</x><y>496</y><w>24</w><h>3</h></coordinates><panel_attributes>boost::static_visitor&lt;Status&gt;
+group=group-1</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>460</x><y>492</y><w>23</w><h>7</h></coordinates><panel_attributes>lt=&lt;&lt;-
+group=group-1</panel_attributes><additional_attributes>10;10;210;50</additional_attributes></element><element><id>UMLClass</id><coordinates><x>438</x><y>474</y><w>39</w><h>19</h></coordinates><panel_attributes>reserve_rows
+--
+# Description
+Preallocates space in SignalBuilder's buffers
+--
+# Members
+int m_row_count
+int m_approx_read_samples
+--
+# Methods
+&lt;&lt;Construct&gt;&gt; reserve_rows(int row_count, int approx_read_samples)
+Status operator()(UncompressedSignalBuilder)
+Status operator()(VbzSignalBuilder)
+Status operator()(PGNanoSignalBuilder)
+
+group=group-1</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>437</x><y>502</y><w>39</w><h>18</h></coordinates><panel_attributes>append_pre_compressed_signal
+--
+# Description
+Given a pre compressed signal, stores it in the builder's buffers
+--
+# Members
+uint8_t[] m_signal
+--
+# Methods
+&lt;&lt;Construct&gt;&gt; append_pre_compressed_signal(uint8_t[] signal)
+Status operator()(UncompressedSignalBuilder)
+Status operator()(VbzSignalBuilder)
+Status operator()(PGNanoSignalBuilder)
+
+group=group-1</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>456</x><y>496</y><w>27</w><h>8</h></coordinates><panel_attributes>lt=&lt;&lt;-
+group=group-1</panel_attributes><additional_attributes>10;60;250;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>485</x><y>502</y><w>64</w><h>24</h></coordinates><panel_attributes>append_signal
+bg=yellow
+--
+# Description
+Compresses signal and stores it in the builder's buffers
+This visitor is who will actually call the compression API
+--
+# Members
+int16_t[] m_signal
+arrow::MemoryPool m_pool
+ReadData m_read_data
+bool m_is_last_batch # TODO: Change name to is_last_chunk
+--
+# Methods
+&lt;&lt;Construct&gt;&gt; append_signal(int16_t[] signal, arrow::MemoryPool * pool, ReadData read_data, bool is_last_batch)
+Status operator()(UncompressedSignalBuilder)
+Status operator()(VbzSignalBuilder)
+Status operator()(PGNanoSignalBuilder)
+
+group=group-1</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>493</x><y>498</y><w>11</w><h>6</h></coordinates><panel_attributes>lt=&lt;&lt;-
+group=group-1</panel_attributes><additional_attributes>90;40;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>491</x><y>471</y><w>39</w><h>20</h></coordinates><panel_attributes>finish_column
+--
+# Description
+Builds an arrow array for writing and clears builder's buffers
+This should be called when a  batch is being written/flushed
+--
+# Members
+std::shared_ptr&lt;arrow::Array&gt; * m_dest
+--
+# Methods
+&lt;&lt;Construct&gt;&gt; finish_column(std::shared_ptr&lt;arrow::Array&gt; * dest)
+Status operator()(UncompressedSignalBuilder)
+Status operator()(VbzSignalBuilder)
+Status operator()(PGNanoSignalBuilder)
+
+group=group-1</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>488</x><y>490</y><w>9</w><h>8</h></coordinates><panel_attributes>lt=&lt;&lt;-
+group=group-1</panel_attributes><additional_attributes>70;10;10;60</additional_attributes></element><element><id>UMLClass</id><coordinates><x>527</x><y>390</y><w>46</w><h>17</h></coordinates><panel_attributes>RunInfoTableWriter
+--
+# Methods
+\brief Add a run info to the table, adding to the current batch.
+\param run_info_data The run info data to add.
+\returns The row index of the inserted read, or a status on failure.
+Result&lt;std::size_t&gt; add_run_info(RunInfoData const &amp; run_info_data);
+Status close();
+Status reserve_rows();
+std::shared_ptr&lt;arrow::Schema&gt; const &amp; schema() const { return m_schema; }
+/// \brief Flush passed data into the writer as a record batch.
+Status write_batch(arrow::RecordBatch const &amp;);</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>582</x><y>390</y><w>28</w><h>15</h></coordinates><panel_attributes>ReadTableWriter
+--
+# Methods
+int add_read(ReadData read_data, SignalTableRowIndex[] signal, int signal_duration)
+void close()
+void reserve_rows()
+arrow::Schema schema()
+\brief Flush passed data into the writer as a record batch.
+void write_batch(arrow::RecordBatch)</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>547</x><y>406</y><w>42</w><h>45</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>400;430;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>591</x><y>404</y><w>6</w><h>47</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>10;450;40;10</additional_attributes></element><element><id>Relation</id><coordinates><x>512</x><y>420</y><w>71</w><h>35</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>690;330;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>560</x><y>374</y><w>27</w><h>18</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>10;160;250;10</additional_attributes></element><element><id>Relation</id><coordinates><x>593</x><y>374</y><w>4</w><h>18</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>20;160;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>477</x><y>370</y><w>90</w><h>24</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>10;220;880;10</additional_attributes></element><element><id>Relation</id><coordinates><x>587</x><y>327</y><w>9</w><h>10</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>70;80;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>620</x><y>316</y><w>30</w><h>25</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>280;10;10;230</additional_attributes></element><element><id>Relation</id><coordinates><x>613</x><y>304</y><w>14</w><h>3</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>120;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>479</x><y>433</y><w>11</w><h>31</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>10;290;90;10</additional_attributes></element><element><id>Relation</id><coordinates><x>417</x><y>423</y><w>36</w><h>14</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>10;120;340;10</additional_attributes></element><element><id>Relation</id><coordinates><x>275</x><y>435</y><w>131</w><h>8</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>10;60;1290;10</additional_attributes></element></diagram>

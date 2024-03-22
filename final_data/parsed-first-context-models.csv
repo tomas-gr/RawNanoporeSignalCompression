@@ -1,0 +1,15 @@
+Nombre,H(X) de chunks (bits/símbolo), H(X) de señal entera
+Base ,7.11361,7.11171
+Signo ,7.12980,7.11560
+Thresholds-[5] ,7.14531,7.13104
+Thresholds-[3] ,7.14651,7.13345
+DiferenciaParImpar ,7.16194,7.14633
+TiempoParImpar ,7.16207,7.14642
+Thresholds-[5; 3] ,7.17621,7.15389
+SignoYThresholds-[3] ,7.18459,7.15312
+SignoYThresholds-[5] ,7.18585,7.15246
+Thresholds-[10; 5; 3] ,7.20510,7.17140
+SignoYThresholds-[5; 3] ,7.23366,7.18784
+SignoYThresholds-[10; 5; 3] ,7.28738,7.22386
+Vbz ,7.38983,7.40003
+Estabilidad ,7.94622,7.93160

@@ -1,0 +1,12 @@
+conda create --name pgnano python=3.11 --yes
+conda install boost-cpp
+conda install cmake
+# Only install arrow if not already provided by the OS, otherwise linkage problems might arise with different c++ standard version between OS's library and conda's
+conda install arrow-cpp=8
+conda install flatbuffers
+conda install zstd
+conda install setuptools_scm
+# preferably install hstslib with the given script
+#conda install -c bioconda htslib
+# Only instal gls (GNU scientific library NOT to be confused with Guidelines Support Library) if not provided by your environment
+# conda install -c conda-forge gsl

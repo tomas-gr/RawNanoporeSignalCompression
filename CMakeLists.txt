@@ -1,0 +1,32 @@
+cmake_minimum_required(VERSION 3.16.0)
+
+project(fork)
+
+set(CMAKE_CXX_STANDARD 20)
+
+set(CXX_SOURCES_ROOT ${CMAKE_SOURCE_DIR}/src/c++)
+set(THIRD_PARTY_ROOT ${CXX_SOURCES_ROOT}/third_party)
+
+set(FQZCOMP_SOURCE_DIR ${THIRD_PARTY_ROOT}/fqzcomp)
+set(FQZCOMP_INCLUDE_DIR ${FQZCOMP_SOURCE_DIR})
+
+set(HTSLIB_ROOT_DIR ${THIRD_PARTY_ROOT}/htslib)
+set(HTSLIB_INCLUDE_DIRS ${HTSLIB_ROOT_DIR}/include/htslib)
+set(HTSLIB_LIB_DIR ${HTSLIB_ROOT_DIR}/lib)
+
+set(PGNANOCOMMON_INCLUDE_DIR ${CXX_SOURCES_ROOT}/commonLib)
+set(PGNANOCOMPRESSION_INCLUDE_DIR ${CXX_SOURCES_ROOT}/compressionLib)
+
+set(TURBOPFOR_ROOT_DIR ${THIRD_PARTY_ROOT}/TurboPFor-Integer-Compression)
+set(TURBOPFOR_INCLUDE_DIRS ${TURBOPFOR_ROOT_DIR}/include)
+set(TURBOPFOR_LIB_DIR ${TURBOPFOR_ROOT_DIR})
+
+include_directories(${PGNANOCOMMON_INCLUDE_DIR})
+include_directories(${FQZCOMP_INCLUDE_DIR})
+include_directories(${PGNANOCOMPRESSION_INCLUDE_DIR})
+include_directories(${TURBOPFOR_INCLUDE_DIRS})
+
+add_subdirectory(src/c++)
+add_subdirectory(pod5)
+
+SET(BUILD_TYPE "BUILD_TYPE" CACHE STRING "NULL")

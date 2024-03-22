@@ -1,0 +1,10 @@
+------------------------------------------------------------------
+--------------------- Compression Benchmarks ---------------------
+------------------------------------------------------------------
+Golomb + RLE (High) Range (Low) Transform (10): 7.10198 bits/symbol at speed: 69.5728MB/s
+Golomb + RLE (High) Range (Low) Transform (9) : 7.137 bits/symbol at speed: 66.3541MB/s
+Golomb + RLE (High) Range (Low) Transform (8) : 7.15314 bits/symbol at speed: 57.3633MB/s
+Golomb + RLE (High) Range (Low) Transform (7) : 7.16698 bits/symbol at speed: 74.8931MB/s
+Golomb + RLE (High) Range (Low) Transform (6) : 7.31826 bits/symbol at speed: 67.04MB/s
+Golomb + RLE (High) Range (Low) Transform (5) : 7.8356 bits/symbol at speed: 77.0388MB/s
+Golomb + RLE (High) Range (Low) Transform (4) : 8.09915 bits/symbol at speed: 94.1455MB/s

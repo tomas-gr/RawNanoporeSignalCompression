@@ -1,0 +1,537 @@
+Database;Compressor;Metric;Average Value
+Fly_DmNQs_Standford_University;LL_LH;Samples;717827912.5714285
+Fly_DmNQs_Standford_University;LL_LH;Bytes after coding;821158269.2857143
+Fly_DmNQs_Standford_University;LL_LH;Bytes after compression;620875950.5
+Fly_DmNQs_Standford_University;LL_LH;bps compression;6.9194963263646425
+Fly_DmNQs_Standford_University;LL_LH;keys coded size;89730157.64285715
+Fly_DmNQs_Standford_University;LL_LH;M coded size;704227713.5
+Fly_DmNQs_Standford_University;LL_LH;Llow coded size;13600199.07142857
+Fly_DmNQs_Standford_University;LL_LH;Lhigh coded size;13600199.07142857
+Fly_DmNQs_Standford_University;LL_LH;keys comp size;19275780.14285714
+Fly_DmNQs_Standford_University;LL_LH;M comp size;585398774.0
+Fly_DmNQs_Standford_University;LL_LH;Llow comp size;13688713.0
+Fly_DmNQs_Standford_University;LL_LH;Lhigh comp size;2512683.3571428573
+Fly_DmNQs_Standford_University;LL_LH;Keys bpb;1.8423265
+Fly_DmNQs_Standford_University;LL_LH;M bpb;6.660268071428573
+Fly_DmNQs_Standford_University;LL_LH;Llow bpb;8.054576785714287
+Fly_DmNQs_Standford_University;LL_LH;Lhigh bpb;1.5163214285714284
+Fly_DmNQs_Standford_University;LL_LH;Keys bps;1.7185553351708898
+Fly_DmNQs_Standford_University;LL_LH;M bps;6.6501077736981165
+Fly_DmNQs_Standford_University;LL_LH;Llow bps;8.052066254681451
+Fly_DmNQs_Standford_University;LL_LH;Lhigh bps;1.47802739883214
+Fly_DmNQs_Standford_University;N01;Samples;717827912.5714285
+Fly_DmNQs_Standford_University;N01;Bytes after coding;772413532.1428572
+Fly_DmNQs_Standford_University;N01;Bytes after compression;612961459.7142857
+Fly_DmNQs_Standford_University;N01;bps compression;6.831291444418911
+Fly_DmNQs_Standford_University;N01;keys coded size;179458399.64285713
+Fly_DmNQs_Standford_University;N01;S coded size;120604070.5
+Fly_DmNQs_Standford_University;N01;M coded size;448886847.85714287
+Fly_DmNQs_Standford_University;N01;Llow coded size;11732107.07142857
+Fly_DmNQs_Standford_University;N01;Lhigh coded size;11732107.07142857
+Fly_DmNQs_Standford_University;N01;keys comp size;106205776.35714285
+Fly_DmNQs_Standford_University;N01;S comp size;120770373.85714285
+Fly_DmNQs_Standford_University;N01;M comp size;371913967.9285714
+Fly_DmNQs_Standford_University;N01;Llow comp size;11847240.42857143
+Fly_DmNQs_Standford_University;N01;Lhigh comp size;2224101.1428571427
+Fly_DmNQs_Standford_University;N01;Keys bpb;4.778813214285715
+Fly_DmNQs_Standford_University;N01;S bpb;8.012844642857145
+Fly_DmNQs_Standford_University;N01;M bpb;6.656929785714284
+Fly_DmNQs_Standford_University;N01;Llow bpb;8.082071285714287
+Fly_DmNQs_Standford_University;N01;Lhigh bpb;1.5558957857142857
+Fly_DmNQs_Standford_University;N01;Keys bps;4.734502327826597
+Fly_DmNQs_Standford_University;N01;S bps;8.011031359485855
+Fly_DmNQs_Standford_University;N01;M bps;6.6281998629094545
+Fly_DmNQs_Standford_University;N01;Llow bps;8.078508221203158
+Fly_DmNQs_Standford_University;N01;Lhigh bps;1.5165910977908066
+Fly_DmNQs_Standford_University;KD;Samples;717827912.5714285
+Fly_DmNQs_Standford_University;KD;Bytes after coding;821158269.2857143
+Fly_DmNQs_Standford_University;KD;Bytes after compression;627275170.6428572
+Fly_DmNQs_Standford_University;KD;bps compression;6.990813922471305
+Fly_DmNQs_Standford_University;KD;keys coded size;89730157.64285715
+Fly_DmNQs_Standford_University;KD;data coded size;731428111.6428572
+Fly_DmNQs_Standford_University;KD;keys comp size;19275780.14285714
+Fly_DmNQs_Standford_University;KD;data comp size;607999390.5
+Fly_DmNQs_Standford_University;KD;Keys bpb;1.8423265
+Fly_DmNQs_Standford_University;KD;data bpb;6.659578000000001
+Fly_DmNQs_Standford_University;KD;Keys bps;1.7185553351708898
+Fly_DmNQs_Standford_University;KD;data bps;6.649997513870508
+Fly_DmNQs_Standford_University;LH;Samples;717827912.5714285
+Fly_DmNQs_Standford_University;LH;Bytes after coding;821158269.2857143
+Fly_DmNQs_Standford_University;LH;Bytes after compression;621312947.2857143
+Fly_DmNQs_Standford_University;LH;bps compression;6.924366538604218
+Fly_DmNQs_Standford_University;LH;keys coded size;89730157.64285715
+Fly_DmNQs_Standford_University;LH;M coded size;717827912.5714285
+Fly_DmNQs_Standford_University;LH;Lhigh coded size;13600199.07142857
+Fly_DmNQs_Standford_University;LH;keys comp size;19275780.14285714
+Fly_DmNQs_Standford_University;LH;M comp size;599524483.7857143
+Fly_DmNQs_Standford_University;LH;Lhigh comp size;2512683.3571428573
+Fly_DmNQs_Standford_University;LH;Keys bpb;1.8423265
+Fly_DmNQs_Standford_University;LH;M bpb;6.695277999999997
+Fly_DmNQs_Standford_University;LH;Lhigh bpb;1.5163214285714284
+Fly_DmNQs_Standford_University;LH;Keys bps;1.7185553351708898
+Fly_DmNQs_Standford_University;LH;M bps;6.68153994333351
+Fly_DmNQs_Standford_University;LH;Lhigh bps;1.47802739883214
+Fly_DmNQs_Standford_University;N02;Samples;717827912.5714285
+Fly_DmNQs_Standford_University;N02;Bytes after coding;781110427.4285715
+Fly_DmNQs_Standford_University;N02;Bytes after compression;615885303.7142857
+Fly_DmNQs_Standford_University;N02;bps compression;6.863876903399196
+Fly_DmNQs_Standford_University;N02;keys coded size;179458399.64285713
+Fly_DmNQs_Standford_University;N02;S coded size;113775295.35714285
+Fly_DmNQs_Standford_University;N02;M coded size;460676334.28571427
+Fly_DmNQs_Standford_University;N02;Llow coded size;13600199.07142857
+Fly_DmNQs_Standford_University;N02;Lhigh coded size;13600199.07142857
+Fly_DmNQs_Standford_University;N02;keys comp size;105849853.57142857
+Fly_DmNQs_Standford_University;N02;S comp size;113932246.42857143
+Fly_DmNQs_Standford_University;N02;M comp size;379901807.35714287
+Fly_DmNQs_Standford_University;N02;Llow comp size;13688713.0
+Fly_DmNQs_Standford_University;N02;Lhigh comp size;2512683.3571428573
+Fly_DmNQs_Standford_University;N02;Keys bpb;4.768267142857143
+Fly_DmNQs_Standford_University;N02;S bpb;8.012457428571429
+Fly_DmNQs_Standford_University;N02;M bpb;6.6233185714285705
+Fly_DmNQs_Standford_University;N02;Llow bpb;8.054576785714287
+Fly_DmNQs_Standford_University;N02;Lhigh bpb;1.5163214285714284
+Fly_DmNQs_Standford_University;N02;Keys bps;4.718635796689682
+Fly_DmNQs_Standford_University;N02;S bps;8.011035862991937
+Fly_DmNQs_Standford_University;N02;M bps;6.597288014739224
+Fly_DmNQs_Standford_University;N02;Llow bps;8.052066254681451
+Fly_DmNQs_Standford_University;N02;Lhigh bps;1.47802739883214
+Fly_DmNQs_Standford_University;pgnano;Samples;650227205.4545455
+Fly_DmNQs_Standford_University;pgnano;Bytes after compression;551789362.6363636
+Fly_DmNQs_Standford_University;pgnano;Bps compression;6.826244272727271
+Fly_DmNQs_Standford_University;pgnano;bps compression;6.788880662114183
+Fly_DmNQs_Standford_University;VBZ;Samples;717827912.5714285
+Fly_DmNQs_Standford_University;VBZ;Bytes after coding;821158269.2857143
+Fly_DmNQs_Standford_University;VBZ;Bytes after compression;629503602.8571428
+Fly_DmNQs_Standford_University;VBZ;bps compression;7.015649203187017
+Fly_DmNQs_Standford_University;VBZ1;Samples;717827912.5714285
+Fly_DmNQs_Standford_University;VBZ1;Bytes after coding;772413532.1428572
+Fly_DmNQs_Standford_University;VBZ1;Bytes after compression;708740273.9285715
+Fly_DmNQs_Standford_University;VBZ1;bps compression;7.898720699112375
+Fly_DmNQs_Standford_University;VBZ1;keys coded size;179458399.64285713
+Fly_DmNQs_Standford_University;VBZ1;data coded size;592955132.5
+Fly_DmNQs_Standford_University;N03;Samples;717827912.5714285
+Fly_DmNQs_Standford_University;N03;Bytes after coding;772413532.1428572
+Fly_DmNQs_Standford_University;N03;Bytes after compression;612827879.0
+Fly_DmNQs_Standford_University;N03;bps compression;6.829802723103438
+Fly_DmNQs_Standford_University;N03;keys coded size;179458399.64285713
+Fly_DmNQs_Standford_University;N03;S coded size;120604070.5
+Fly_DmNQs_Standford_University;N03;M coded size;448886847.85714287
+Fly_DmNQs_Standford_University;N03;Llow coded size;11732107.07142857
+Fly_DmNQs_Standford_University;N03;Lhigh coded size;11732107.07142857
+Fly_DmNQs_Standford_University;N03;keys comp size;106205776.35714285
+Fly_DmNQs_Standford_University;N03;S comp size;120677998.5
+Fly_DmNQs_Standford_University;N03;M comp size;371913967.9285714
+Fly_DmNQs_Standford_University;N03;Llow comp size;11806035.07142857
+Fly_DmNQs_Standford_University;N03;Lhigh comp size;2224101.1428571427
+Fly_DmNQs_Standford_University;N03;Keys bpb;4.778813214285715
+Fly_DmNQs_Standford_University;N03;S bpb;8.005709999999999
+Fly_DmNQs_Standford_University;N03;M bpb;6.656929785714284
+Fly_DmNQs_Standford_University;N03;Llow bpb;8.053168142857142
+Fly_DmNQs_Standford_University;N03;Lhigh bpb;1.5558957857142857
+Fly_DmNQs_Standford_University;N03;Keys bps;4.734502327826597
+Fly_DmNQs_Standford_University;N03;S bps;8.00490384775197
+Fly_DmNQs_Standford_University;N03;M bps;6.6281998629094545
+Fly_DmNQs_Standford_University;N03;Llow bps;8.0504107230184
+Fly_DmNQs_Standford_University;N03;Lhigh bps;1.5165910977908066
+Human_GGiab10_3_ONT;LL_LH;Samples;971589011.0714285
+Human_GGiab10_3_ONT;LL_LH;Bytes after coding;1117077601.4285715
+Human_GGiab10_3_ONT;LL_LH;Bytes after compression;847585608.8571428
+Human_GGiab10_3_ONT;LL_LH;bps compression;6.978964143881868
+Human_GGiab10_3_ONT;LL_LH;keys coded size;121450479.57142857
+Human_GGiab10_3_ONT;LL_LH;M coded size;947550900.2857143
+Human_GGiab10_3_ONT;LL_LH;Llow coded size;24038110.785714287
+Human_GGiab10_3_ONT;LL_LH;Lhigh coded size;24038110.785714287
+Human_GGiab10_3_ONT;LL_LH;keys comp size;31793014.5
+Human_GGiab10_3_ONT;LL_LH;M comp size;787687309.6428572
+Human_GGiab10_3_ONT;LL_LH;Llow comp size;23850249.285714287
+Human_GGiab10_3_ONT;LL_LH;Lhigh comp size;4255035.428571428
+Human_GGiab10_3_ONT;LL_LH;Keys bpb;2.087678785714286
+Human_GGiab10_3_ONT;LL_LH;M bpb;6.649879000000001
+Human_GGiab10_3_ONT;LL_LH;Llow bpb;7.935803571428571
+Human_GGiab10_3_ONT;LL_LH;Lhigh bpb;1.4097935
+Human_GGiab10_3_ONT;LL_LH;Keys bps;2.094220763042873
+Human_GGiab10_3_ONT;LL_LH;M bps;6.650300765101665
+Human_GGiab10_3_ONT;LL_LH;Llow bps;7.937478780533238
+Human_GGiab10_3_ONT;LL_LH;Lhigh bps;1.4160964533369809
+Human_GGiab10_3_ONT;N01;Samples;971589011.0714285
+Human_GGiab10_3_ONT;N01;Bytes after coding;1035234855.1428572
+Human_GGiab10_3_ONT;N01;Bytes after compression;834646120.7142857
+Human_GGiab10_3_ONT;N01;bps compression;6.872421249753511
+Human_GGiab10_3_ONT;N01;keys coded size;242898849.57142857
+Human_GGiab10_3_ONT;N01;S coded size;174780349.64285713
+Human_GGiab10_3_ONT;N01;M coded size;575983438.6428572
+Human_GGiab10_3_ONT;N01;Llow coded size;20786108.64285714
+Human_GGiab10_3_ONT;N01;Lhigh coded size;20786108.64285714
+Human_GGiab10_3_ONT;N01;keys comp size;150682328.0
+Human_GGiab10_3_ONT;N01;S comp size;174962655.14285713
+Human_GGiab10_3_ONT;N01;M comp size;484581833.5714286
+Human_GGiab10_3_ONT;N01;Llow comp size;20699055.14285714
+Human_GGiab10_3_ONT;N01;Lhigh comp size;3720248.8571428573
+Human_GGiab10_3_ONT;N01;Keys bpb;4.961275642857143
+Human_GGiab10_3_ONT;N01;S bpb;8.008267428571427
+Human_GGiab10_3_ONT;N01;M bpb;6.730319571428572
+Human_GGiab10_3_ONT;N01;Llow bpb;7.965247928571428
+Human_GGiab10_3_ONT;N01;Lhigh bpb;1.426623714285714
+Human_GGiab10_3_ONT;N01;Keys bps;4.962800878336454
+Human_GGiab10_3_ONT;N01;S bps;8.008344439194568
+Human_GGiab10_3_ONT;N01;M bps;6.730496761687583
+Human_GGiab10_3_ONT;N01;Llow bps;7.966495508516486
+Human_GGiab10_3_ONT;N01;Lhigh bps;1.4318211921484472
+Human_GGiab10_3_ONT;KD;Samples;971589011.0714285
+Human_GGiab10_3_ONT;KD;Bytes after coding;1117077601.4285715
+Human_GGiab10_3_ONT;KD;Bytes after compression;859515567.5714285
+Human_GGiab10_3_ONT;KD;bps compression;7.077194639108485
+Human_GGiab10_3_ONT;KD;keys coded size;121450479.57142857
+Human_GGiab10_3_ONT;KD;data coded size;995627121.8571428
+Human_GGiab10_3_ONT;KD;keys comp size;31793014.5
+Human_GGiab10_3_ONT;KD;data comp size;827722553.0714285
+Human_GGiab10_3_ONT;KD;Keys bpb;2.087678785714286
+Human_GGiab10_3_ONT;KD;data bpb;6.650242857142857
+Human_GGiab10_3_ONT;KD;Keys bps;2.094220763042873
+Human_GGiab10_3_ONT;KD;data bps;6.6508638416959
+Human_GGiab10_3_ONT;LH;Samples;971589011.0714285
+Human_GGiab10_3_ONT;LH;Bytes after coding;1117077601.4285715
+Human_GGiab10_3_ONT;LH;Bytes after compression;848929003.9285715
+Human_GGiab10_3_ONT;LH;bps compression;6.990025570523136
+Human_GGiab10_3_ONT;LH;keys coded size;121450479.57142857
+Human_GGiab10_3_ONT;LH;M coded size;971589011.0714285
+Human_GGiab10_3_ONT;LH;Lhigh coded size;24038110.785714287
+Human_GGiab10_3_ONT;LH;keys comp size;31793014.5
+Human_GGiab10_3_ONT;LH;M comp size;812880954.0
+Human_GGiab10_3_ONT;LH;Lhigh comp size;4255035.428571428
+Human_GGiab10_3_ONT;LH;Keys bpb;2.087678785714286
+Human_GGiab10_3_ONT;LH;M bpb;6.692345071428571
+Human_GGiab10_3_ONT;LH;Lhigh bpb;1.4097935
+Human_GGiab10_3_ONT;LH;Keys bps;2.094220763042873
+Human_GGiab10_3_ONT;LH;M bps;6.693208298875988
+Human_GGiab10_3_ONT;LH;Lhigh bps;1.4160964533369809
+Human_GGiab10_3_ONT;N02;Samples;971589011.0714285
+Human_GGiab10_3_ONT;N02;Bytes after coding;1048217309.7857143
+Human_GGiab10_3_ONT;N02;Bytes after compression;839079171.0
+Human_GGiab10_3_ONT;N02;bps compression;6.908922694172491
+Human_GGiab10_3_ONT;N02;keys coded size;242898849.57142857
+Human_GGiab10_3_ONT;N02;S coded size;165049932.0
+Human_GGiab10_3_ONT;N02;M coded size;592192306.6428572
+Human_GGiab10_3_ONT;N02;Llow coded size;24038110.785714287
+Human_GGiab10_3_ONT;N02;Lhigh coded size;24038110.785714287
+Human_GGiab10_3_ONT;N02;keys comp size;150940111.57142857
+Human_GGiab10_3_ONT;N02;S comp size;165205942.92857143
+Human_GGiab10_3_ONT;N02;M comp size;494827831.78571427
+Human_GGiab10_3_ONT;N02;Llow comp size;23850249.285714287
+Human_GGiab10_3_ONT;N02;Lhigh comp size;4255035.428571428
+Human_GGiab10_3_ONT;N02;Keys bpb;4.970065142857144
+Human_GGiab10_3_ONT;N02;S bpb;8.007412214285713
+Human_GGiab10_3_ONT;N02;M bpb;6.684469357142858
+Human_GGiab10_3_ONT;N02;Llow bpb;7.935803571428571
+Human_GGiab10_3_ONT;N02;Lhigh bpb;1.4097935
+Human_GGiab10_3_ONT;N02;Keys bps;4.971291114395897
+Human_GGiab10_3_ONT;N02;S bps;8.007561877872034
+Human_GGiab10_3_ONT;N02;M bps;6.684691121246031
+Human_GGiab10_3_ONT;N02;Llow bps;7.937478780533238
+Human_GGiab10_3_ONT;N02;Lhigh bps;1.4160964533369809
+Human_GGiab10_3_ONT;pgnano;Samples;971589011.0714285
+Human_GGiab10_3_ONT;pgnano;Bytes after compression;831565786.4285715
+Human_GGiab10_3_ONT;pgnano;Bps compression;6.845366142857142
+Human_GGiab10_3_ONT;pgnano;bps compression;6.847057979888469
+Human_GGiab10_3_ONT;VBZ;Samples;971589011.0714285
+Human_GGiab10_3_ONT;VBZ;Bytes after coding;1117077601.4285715
+Human_GGiab10_3_ONT;VBZ;Bytes after compression;863142808.2142857
+Human_GGiab10_3_ONT;VBZ;bps compression;7.107061099939343
+Human_GGiab10_3_ONT;VBZ1;Samples;971589011.0714285
+Human_GGiab10_3_ONT;VBZ1;Bytes after coding;1035234855.1428572
+Human_GGiab10_3_ONT;VBZ1;Bytes after compression;956433756.1428572
+Human_GGiab10_3_ONT;VBZ1;bps compression;7.87521262792498
+Human_GGiab10_3_ONT;VBZ1;keys coded size;242898849.57142857
+Human_GGiab10_3_ONT;VBZ1;data coded size;792336005.5714285
+Human_GGiab10_3_ONT;N03;Samples;971589011.0714285
+Human_GGiab10_3_ONT;N03;Bytes after coding;1035234855.1428572
+Human_GGiab10_3_ONT;N03;Bytes after compression;834740306.4285715
+Human_GGiab10_3_ONT;N03;bps compression;6.8731967687288185
+Human_GGiab10_3_ONT;N03;keys coded size;242898849.57142857
+Human_GGiab10_3_ONT;N03;S coded size;174780349.64285713
+Human_GGiab10_3_ONT;N03;M coded size;575983438.6428572
+Human_GGiab10_3_ONT;N03;Llow coded size;20786108.64285714
+Human_GGiab10_3_ONT;N03;Lhigh coded size;20786108.64285714
+Human_GGiab10_3_ONT;N03;keys comp size;150682328.0
+Human_GGiab10_3_ONT;N03;S comp size;174875068.5
+Human_GGiab10_3_ONT;N03;M comp size;484581833.5714286
+Human_GGiab10_3_ONT;N03;Llow comp size;20880827.5
+Human_GGiab10_3_ONT;N03;Lhigh comp size;3720248.8571428573
+Human_GGiab10_3_ONT;N03;Keys bpb;4.961275642857143
+Human_GGiab10_3_ONT;N03;S bpb;8.004331571428574
+Human_GGiab10_3_ONT;N03;M bpb;6.730319571428572
+Human_GGiab10_3_ONT;N03;Llow bpb;8.036741714285714
+Human_GGiab10_3_ONT;N03;Lhigh bpb;1.426623714285714
+Human_GGiab10_3_ONT;N03;Keys bps;4.962800878336454
+Human_GGiab10_3_ONT;N03;S bps;8.00433544651153
+Human_GGiab10_3_ONT;N03;M bps;6.730496761687583
+Human_GGiab10_3_ONT;N03;Llow bps;8.03645467606094
+Human_GGiab10_3_ONT;N03;Lhigh bps;1.4318211921484472
+Human_GGiab9_4_1_ONT;LL_LH;Samples;1224575515.9333334
+Human_GGiab9_4_1_ONT;LL_LH;Bytes after coding;1377723767.0
+Human_GGiab9_4_1_ONT;LL_LH;Bytes after compression;807023860.5333333
+Human_GGiab9_4_1_ONT;LL_LH;bps compression;5.272186811073026
+Human_GGiab9_4_1_ONT;LL_LH;keys coded size;153073784.46666667
+Human_GGiab9_4_1_ONT;LL_LH;M coded size;1224501049.3333333
+Human_GGiab9_4_1_ONT;LL_LH;Llow coded size;74466.6
+Human_GGiab9_4_1_ONT;LL_LH;Lhigh coded size;74466.6
+Human_GGiab9_4_1_ONT;LL_LH;keys comp size;613747.7333333333
+Human_GGiab9_4_1_ONT;LL_LH;M comp size;805906563.1333333
+Human_GGiab9_4_1_ONT;LL_LH;Llow comp size;316898.26666666666
+Human_GGiab9_4_1_ONT;LL_LH;Lhigh comp size;186651.4
+Human_GGiab9_4_1_ONT;LL_LH;Keys bpb;0.0318698
+Human_GGiab9_4_1_ONT;LL_LH;M bpb;5.2699056
+Human_GGiab9_4_1_ONT;LL_LH;Llow bpb;34.642172200000005
+Human_GGiab9_4_1_ONT;LL_LH;Lhigh bpb;20.384702666666666
+Human_GGiab9_4_1_ONT;LL_LH;Keys bps;0.03207591609349584
+Human_GGiab9_4_1_ONT;LL_LH;M bps;5.265207823690151
+Human_GGiab9_4_1_ONT;LL_LH;Llow bps;34.04460702292482
+Human_GGiab9_4_1_ONT;LL_LH;Lhigh bps;20.052093153172027
+Human_GGiab9_4_1_ONT;N01;Samples;1224575515.9333334
+Human_GGiab9_4_1_ONT;N01;Bytes after coding;1016363533.4666667
+Human_GGiab9_4_1_ONT;N01;Bytes after compression;801223767.4
+Human_GGiab9_4_1_ONT;N01;bps compression;5.234295521836118
+Human_GGiab9_4_1_ONT;N01;keys coded size;306145455.6666667
+Human_GGiab9_4_1_ONT;N01;S coded size;426279999.4
+Human_GGiab9_4_1_ONT;N01;M coded size;283872473.46666664
+Human_GGiab9_4_1_ONT;N01;Llow coded size;32802.46666666667
+Human_GGiab9_4_1_ONT;N01;Lhigh coded size;32802.46666666667
+Human_GGiab9_4_1_ONT;N01;keys comp size;172279431.2
+Human_GGiab9_4_1_ONT;N01;S comp size;421871595.06666666
+Human_GGiab9_4_1_ONT;N01;M comp size;206639578.66666666
+Human_GGiab9_4_1_ONT;N01;Llow comp size;275239.8
+Human_GGiab9_4_1_ONT;N01;Lhigh comp size;157922.66666666666
+Human_GGiab9_4_1_ONT;N01;Keys bpb;4.506039533333333
+Human_GGiab9_4_1_ONT;N01;S bpb;7.922405066666667
+Human_GGiab9_4_1_ONT;N01;M bpb;5.822284866666666
+Human_GGiab9_4_1_ONT;N01;Llow bpb;68.03849039999999
+Human_GGiab9_4_1_ONT;N01;Lhigh bpb;38.98263779999999
+Human_GGiab9_4_1_ONT;N01;Keys bps;4.501897461122638
+Human_GGiab9_4_1_ONT;N01;S bps;7.917267442253199
+Human_GGiab9_4_1_ONT;N01;M bps;5.823448146082569
+Human_GGiab9_4_1_ONT;N01;Llow bps;67.12661039718557
+Human_GGiab9_4_1_ONT;N01;Lhigh bps;38.5148271369836
+Human_GGiab9_4_1_ONT;KD;Samples;1224575515.9333334
+Human_GGiab9_4_1_ONT;KD;Bytes after coding;1377723767.0
+Human_GGiab9_4_1_ONT;KD;Bytes after compression;806512683.2666667
+Human_GGiab9_4_1_ONT;KD;bps compression;5.2688473533751345
+Human_GGiab9_4_1_ONT;KD;keys coded size;153073784.46666667
+Human_GGiab9_4_1_ONT;KD;data coded size;1224649982.5333333
+Human_GGiab9_4_1_ONT;KD;keys comp size;613747.7333333333
+Human_GGiab9_4_1_ONT;KD;data comp size;805898935.5333333
+Human_GGiab9_4_1_ONT;KD;Keys bpb;0.0318698
+Human_GGiab9_4_1_ONT;KD;data bpb;5.269216133333334
+Human_GGiab9_4_1_ONT;KD;Keys bps;0.03207591609349584
+Human_GGiab9_4_1_ONT;KD;data bps;5.2645176795167945
+Human_GGiab9_4_1_ONT;LH;Samples;1224575515.9333334
+Human_GGiab9_4_1_ONT;LH;Bytes after coding;1377723767.0
+Human_GGiab9_4_1_ONT;LH;Bytes after compression;806775922.7333333
+Human_GGiab9_4_1_ONT;LH;bps compression;5.270567064169555
+Human_GGiab9_4_1_ONT;LH;keys coded size;153073784.46666667
+Human_GGiab9_4_1_ONT;LH;M coded size;1224575515.9333334
+Human_GGiab9_4_1_ONT;LH;Lhigh coded size;74466.6
+Human_GGiab9_4_1_ONT;LH;keys comp size;613747.7333333333
+Human_GGiab9_4_1_ONT;LH;M comp size;805975523.6
+Human_GGiab9_4_1_ONT;LH;Lhigh comp size;186651.4
+Human_GGiab9_4_1_ONT;LH;Keys bpb;0.0318698
+Human_GGiab9_4_1_ONT;LH;M bpb;5.2700366
+Human_GGiab9_4_1_ONT;LH;Lhigh bpb;20.384702666666666
+Human_GGiab9_4_1_ONT;LH;Keys bps;0.03207591609349584
+Human_GGiab9_4_1_ONT;LH;M bps;5.265338155879823
+Human_GGiab9_4_1_ONT;LH;Lhigh bps;20.052093153172027
+Human_GGiab9_4_1_ONT;N02;Samples;1224575515.9333334
+Human_GGiab9_4_1_ONT;N02;Bytes after coding;1030328743.7333333
+Human_GGiab9_4_1_ONT;N02;Bytes after compression;799149527.0
+Human_GGiab9_4_1_ONT;N02;bps compression;5.220744766505726
+Human_GGiab9_4_1_ONT;N02;keys coded size;306145455.6666667
+Human_GGiab9_4_1_ONT;N02;S coded size;412356437.1333333
+Human_GGiab9_4_1_ONT;N02;M coded size;311677917.73333335
+Human_GGiab9_4_1_ONT;N02;Llow coded size;74466.6
+Human_GGiab9_4_1_ONT;N02;Lhigh coded size;74466.6
+Human_GGiab9_4_1_ONT;N02;keys comp size;176988602.73333332
+Human_GGiab9_4_1_ONT;N02;S comp size;397972056.8
+Human_GGiab9_4_1_ONT;N02;M comp size;223685317.8
+Human_GGiab9_4_1_ONT;N02;Llow comp size;316898.26666666666
+Human_GGiab9_4_1_ONT;N02;Lhigh comp size;186651.4
+Human_GGiab9_4_1_ONT;N02;Keys bpb;4.6294770666666665
+Human_GGiab9_4_1_ONT;N02;S bpb;7.7231391333333335
+Human_GGiab9_4_1_ONT;N02;M bpb;5.740627533333333
+Human_GGiab9_4_1_ONT;N02;Llow bpb;34.642172200000005
+Human_GGiab9_4_1_ONT;N02;Lhigh bpb;20.384702666666666
+Human_GGiab9_4_1_ONT;N02;Keys bps;4.624954562148779
+Human_GGiab9_4_1_ONT;N02;S bps;7.720933075601636
+Human_GGiab9_4_1_ONT;N02;M bps;5.7414479518278
+Human_GGiab9_4_1_ONT;N02;Llow bps;34.04460702292482
+Human_GGiab9_4_1_ONT;N02;Lhigh bps;20.052093153172027
+Human_GGiab9_4_1_ONT;pgnano;Samples;1224575515.9333334
+Human_GGiab9_4_1_ONT;pgnano;Bytes after compression;798686965.7333333
+Human_GGiab9_4_1_ONT;pgnano;Bps compression;5.222271733333333
+Human_GGiab9_4_1_ONT;pgnano;bps compression;5.217722911107521
+Human_GGiab9_4_1_ONT;VBZ;Samples;1224575515.9333334
+Human_GGiab9_4_1_ONT;VBZ;Bytes after coding;1377723767.0
+Human_GGiab9_4_1_ONT;VBZ;Bytes after compression;806178160.5333333
+Human_GGiab9_4_1_ONT;VBZ;bps compression;5.266661957838603
+Human_GGiab9_4_1_ONT;VBZ1;Samples;1224575515.9333334
+Human_GGiab9_4_1_ONT;VBZ1;Bytes after coding;1016363533.4666667
+Human_GGiab9_4_1_ONT;VBZ1;Bytes after compression;912673361.0666667
+Human_GGiab9_4_1_ONT;VBZ1;bps compression;5.962381897672063
+Human_GGiab9_4_1_ONT;VBZ1;keys coded size;306145455.6666667
+Human_GGiab9_4_1_ONT;VBZ1;data coded size;710218077.8
+Human_GGiab9_4_1_ONT;N03;Samples;1224575515.9333334
+Human_GGiab9_4_1_ONT;N03;Bytes after coding;1016363533.4666667
+Human_GGiab9_4_1_ONT;N03;Bytes after compression;805617910.4
+Human_GGiab9_4_1_ONT;N03;bps compression;5.263001913187742
+Human_GGiab9_4_1_ONT;N03;keys coded size;306145455.6666667
+Human_GGiab9_4_1_ONT;N03;S coded size;426279999.4
+Human_GGiab9_4_1_ONT;N03;M coded size;283872473.46666664
+Human_GGiab9_4_1_ONT;N03;Llow coded size;32802.46666666667
+Human_GGiab9_4_1_ONT;N03;Lhigh coded size;32802.46666666667
+Human_GGiab9_4_1_ONT;N03;keys comp size;172279431.2
+Human_GGiab9_4_1_ONT;N03;S comp size;426394087.4
+Human_GGiab9_4_1_ONT;N03;M comp size;206639578.66666666
+Human_GGiab9_4_1_ONT;N03;Llow comp size;146890.46666666667
+Human_GGiab9_4_1_ONT;N03;Lhigh comp size;157922.66666666666
+Human_GGiab9_4_1_ONT;N03;Keys bpb;4.506039533333333
+Human_GGiab9_4_1_ONT;N03;S bpb;8.002146933333334
+Human_GGiab9_4_1_ONT;N03;M bpb;5.822284866666666
+Human_GGiab9_4_1_ONT;N03;Llow bpb;36.253367866666665
+Human_GGiab9_4_1_ONT;N03;Lhigh bpb;38.98263779999999
+Human_GGiab9_4_1_ONT;N03;Keys bps;4.501897461122638
+Human_GGiab9_4_1_ONT;N03;S bps;8.002141090366155
+Human_GGiab9_4_1_ONT;N03;M bps;5.823448146082569
+Human_GGiab9_4_1_ONT;N03;Llow bps;35.82424898940527
+Human_GGiab9_4_1_ONT;N03;Lhigh bps;38.5148271369836
+Human_GiaBAT_ONT;LL_LH;Samples;912908082.6
+Human_GiaBAT_ONT;LL_LH;Bytes after coding;1052293321.2666667
+Human_GiaBAT_ONT;LL_LH;Bytes after compression;809496277.9333333
+Human_GiaBAT_ONT;LL_LH;bps compression;7.093781232632792
+Human_GiaBAT_ONT;LL_LH;keys coded size;114115185.6
+Human_GiaBAT_ONT;LL_LH;M coded size;887638029.5333333
+Human_GiaBAT_ONT;LL_LH;Llow coded size;25270053.066666666
+Human_GiaBAT_ONT;LL_LH;Lhigh coded size;25270053.066666666
+Human_GiaBAT_ONT;LL_LH;keys comp size;29755589.066666666
+Human_GiaBAT_ONT;LL_LH;M comp size;749107552.0
+Human_GiaBAT_ONT;LL_LH;Llow comp size;25446087.466666665
+Human_GiaBAT_ONT;LL_LH;Lhigh comp size;5187049.4
+Human_GiaBAT_ONT;LL_LH;Keys bpb;2.1909483999999995
+Human_GiaBAT_ONT;LL_LH;M bpb;6.759212
+Human_GiaBAT_ONT;LL_LH;Llow bpb;8.064025133333333
+Human_GiaBAT_ONT;LL_LH;Lhigh bpb;1.6742135333333332
+Human_GiaBAT_ONT;LL_LH;Keys bps;2.086003815195419
+Human_GiaBAT_ONT;LL_LH;M bps;6.751468748078184
+Human_GiaBAT_ONT;LL_LH;Llow bps;8.055729016329517
+Human_GiaBAT_ONT;LL_LH;Lhigh bps;1.6421174538306471
+Human_GiaBAT_ONT;N01;Samples;912908082.6
+Human_GiaBAT_ONT;N01;Bytes after coding;998586836.1333333
+Human_GiaBAT_ONT;N01;Bytes after compression;799734027.4666667
+Human_GiaBAT_ONT;N01;bps compression;7.00823263773931
+Human_GiaBAT_ONT;N01;keys coded size;228228454.8
+Human_GiaBAT_ONT;N01;S coded size;144226866.53333333
+Human_GiaBAT_ONT;N01;M coded size;581400451.8666667
+Human_GiaBAT_ONT;N01;Llow coded size;22365531.466666665
+Human_GiaBAT_ONT;N01;Lhigh coded size;22365531.466666665
+Human_GiaBAT_ONT;N01;keys comp size;136809169.06666666
+Human_GiaBAT_ONT;N01;S comp size;144366015.13333333
+Human_GiaBAT_ONT;N01;M comp size;491357030.46666664
+Human_GiaBAT_ONT;N01;Llow comp size;22547079.466666665
+Human_GiaBAT_ONT;N01;Lhigh comp size;4654733.333333333
+Human_GiaBAT_ONT;N01;Keys bpb;4.8271196666666665
+Human_GiaBAT_ONT;N01;S bpb;8.005801466666666
+Human_GiaBAT_ONT;N01;M bpb;6.774971933333332
+Human_GiaBAT_ONT;N01;Llow bpb;8.074052533333333
+Human_GiaBAT_ONT;N01;Lhigh bpb;1.699905
+Human_GiaBAT_ONT;N01;Keys bps;4.795516639204505
+Human_GiaBAT_ONT;N01;S bps;8.007718317860999
+Human_GiaBAT_ONT;N01;M bps;6.761013396382433
+Human_GiaBAT_ONT;N01;Llow bps;8.06493849708712
+Human_GiaBAT_ONT;N01;Lhigh bps;1.6649667691628771
+Human_GiaBAT_ONT;KD;Samples;912908082.6
+Human_GiaBAT_ONT;KD;Bytes after coding;1052293321.2666667
+Human_GiaBAT_ONT;KD;Bytes after compression;821257555.4666667
+Human_GiaBAT_ONT;KD;bps compression;7.196847710036184
+Human_GiaBAT_ONT;KD;keys coded size;114115185.6
+Human_GiaBAT_ONT;KD;data coded size;938178135.6666666
+Human_GiaBAT_ONT;KD;keys comp size;29755589.066666666
+Human_GiaBAT_ONT;KD;data comp size;791501966.4
+Human_GiaBAT_ONT;KD;Keys bpb;2.1909483999999995
+Human_GiaBAT_ONT;KD;data bpb;6.755798933333333
+Human_GiaBAT_ONT;KD;Keys bps;2.086003815195419
+Human_GiaBAT_ONT;KD;data bps;6.749268065920645
+Human_GiaBAT_ONT;LH;Samples;912908082.6
+Human_GiaBAT_ONT;LH;Bytes after coding;1052293321.2666667
+Human_GiaBAT_ONT;LH;Bytes after compression;810574550.3333334
+Human_GiaBAT_ONT;LH;bps compression;7.1032303539237684
+Human_GiaBAT_ONT;LH;keys coded size;114115185.6
+Human_GiaBAT_ONT;LH;M coded size;912908082.6
+Human_GiaBAT_ONT;LH;Lhigh coded size;25270053.066666666
+Human_GiaBAT_ONT;LH;keys comp size;29755589.066666666
+Human_GiaBAT_ONT;LH;M comp size;775631911.8666667
+Human_GiaBAT_ONT;LH;Lhigh comp size;5187049.4
+Human_GiaBAT_ONT;LH;Keys bpb;2.1909483999999995
+Human_GiaBAT_ONT;LH;M bpb;6.807068066666665
+Human_GiaBAT_ONT;LH;Lhigh bpb;1.6742135333333332
+Human_GiaBAT_ONT;LH;Keys bps;2.086003815195419
+Human_GiaBAT_ONT;LH;M bps;6.7970208755968935
+Human_GiaBAT_ONT;LH;Lhigh bps;1.6421174538306471
+Human_GiaBAT_ONT;N02;Samples;912908082.6
+Human_GiaBAT_ONT;N02;Bytes after coding;1009874217.2666667
+Human_GiaBAT_ONT;N02;Bytes after compression;803280439.0
+Human_GiaBAT_ONT;N02;bps compression;7.039310566402033
+Human_GiaBAT_ONT;N02;keys coded size;228228454.8
+Human_GiaBAT_ONT;N02;S coded size;135844026.66666666
+Human_GiaBAT_ONT;N02;M coded size;595261629.6666666
+Human_GiaBAT_ONT;N02;Llow coded size;25270053.066666666
+Human_GiaBAT_ONT;N02;Lhigh coded size;25270053.066666666
+Human_GiaBAT_ONT;N02;keys comp size;136285597.13333333
+Human_GiaBAT_ONT;N02;S comp size;135957275.4
+Human_GiaBAT_ONT;N02;M comp size;500404429.6
+Human_GiaBAT_ONT;N02;Llow comp size;25446087.466666665
+Human_GiaBAT_ONT;N02;Lhigh comp size;5187049.4
+Human_GiaBAT_ONT;N02;Keys bpb;4.809884199999999
+Human_GiaBAT_ONT;N02;S bpb;8.003785466666667
+Human_GiaBAT_ONT;N02;M bpb;6.738405866666667
+Human_GiaBAT_ONT;N02;Llow bpb;8.064025133333333
+Human_GiaBAT_ONT;N02;Lhigh bpb;1.6742135333333332
+Human_GiaBAT_ONT;N02;Keys bps;4.77716408333965
+Human_GiaBAT_ONT;N02;S bps;8.006669339012527
+Human_GiaBAT_ONT;N02;M bps;6.725169635142993
+Human_GiaBAT_ONT;N02;Llow bps;8.055729016329517
+Human_GiaBAT_ONT;N02;Lhigh bps;1.6421174538306471
+Human_GiaBAT_ONT;pgnano;Samples;912908082.6
+Human_GiaBAT_ONT;pgnano;Bytes after compression;795162573.8666667
+Human_GiaBAT_ONT;pgnano;Bps compression;6.989535733333333
+Human_GiaBAT_ONT;pgnano;bps compression;6.968172056069529
+Human_GiaBAT_ONT;VBZ;Samples;912908082.6
+Human_GiaBAT_ONT;VBZ;Bytes after coding;1052293321.2666667
+Human_GiaBAT_ONT;VBZ;Bytes after compression;825603700.6
+Human_GiaBAT_ONT;VBZ;bps compression;7.234933867590669
+Human_GiaBAT_ONT;VBZ1;Samples;912908082.6
+Human_GiaBAT_ONT;VBZ1;Bytes after coding;998586836.1333333
+Human_GiaBAT_ONT;VBZ1;Bytes after compression;920207682.0666667
+Human_GiaBAT_ONT;VBZ1;bps compression;8.06396788115515
+Human_GiaBAT_ONT;VBZ1;keys coded size;228228454.8
+Human_GiaBAT_ONT;VBZ1;data coded size;770358381.3333334
+Human_GiaBAT_ONT;N03;Samples;912908082.6
+Human_GiaBAT_ONT;N03;Bytes after coding;998586836.1333333
+Human_GiaBAT_ONT;N03;Bytes after compression;799592146.8666667
+Human_GiaBAT_ONT;N03;bps compression;7.006989309060734
+Human_GiaBAT_ONT;N03;keys coded size;228228454.8
+Human_GiaBAT_ONT;N03;S coded size;144226866.53333333
+Human_GiaBAT_ONT;N03;M coded size;581400451.8666667
+Human_GiaBAT_ONT;N03;Llow coded size;22365531.466666665
+Human_GiaBAT_ONT;N03;Lhigh coded size;22365531.466666665
+Human_GiaBAT_ONT;N03;keys comp size;136809169.06666666
+Human_GiaBAT_ONT;N03;S comp size;144316274.53333333
+Human_GiaBAT_ONT;N03;M comp size;491357030.46666664
+Human_GiaBAT_ONT;N03;Llow comp size;22454939.466666665
+Human_GiaBAT_ONT;N03;Lhigh comp size;4654733.333333333
+Human_GiaBAT_ONT;N03;Keys bpb;4.8271196666666665
+Human_GiaBAT_ONT;N03;S bpb;8.005827466666666
+Human_GiaBAT_ONT;N03;M bpb;6.774971933333332
+Human_GiaBAT_ONT;N03;Llow bpb;8.035900533333333
+Human_GiaBAT_ONT;N03;Lhigh bpb;1.699905
+Human_GiaBAT_ONT;N03;Keys bps;4.795516639204505
+Human_GiaBAT_ONT;N03;S bps;8.004959297925499
+Human_GiaBAT_ONT;N03;M bps;6.761013396382433
+Human_GiaBAT_ONT;N03;Llow bps;8.031980639541967
+Human_GiaBAT_ONT;N03;Lhigh bps;1.6649667691628771

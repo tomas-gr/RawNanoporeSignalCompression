@@ -1,0 +1,211 @@
+FIXME: agregar en algún lado análisis de requerimientos
+caratula
+FIXME: En algún momento dar una idea de que tamaño de archivos estamos hablando en un genoma; presentar xq es relevante tener los datos crudos y no solo el basecalling (por ej mejoras en modelos como pasa con ONT) y decir que ya existen soluciones para los formatos FASTQ, post basecalling 
+TODO: corroborar si los indices de reads si o si ordenados. tipo si forall read1, read2. read1.index < read2.index => forall signal1, signal2. signal1.is_signal(read1) && signal2.is_signal(read2) => signal1.index < signal2.index
+resumen del trabajo (abstract + keywords)
+    abstract
+        mencionar objetivo de "Compresión de datos crudos de secuenciación de ADN por nanoporos"
+        mencionar formato de archivo pod5 y nanoporos y ONT
+        aclarar objetivo de que es en dentro de proyecto de investigación del nucleo de teoria de la informacion
+        aclarar objetivo de modificar librería de forma que sea "sencillo" hacer un merge request
+            Se modifica una librería en C++, que expone una API en C y Python
+            Mantener atributos de calidad que ya existan en la libería, como multithreading o random access
+        tests punta a punta y su resultado (tasa de compresión y ratio de tiempos de ejecución del producto final)
+tabla de contenido
+Introduccion
+    La secuenciación de ADN fue importante en los últimos años.
+    Luego, las herramientas informáticas involucradas son relevantes
+    Mejores algoritmos de compresión que mejoren el espacio en disco o tiempos de ejecución pueden abaratar los costos totales de la secuenciación
+    Objetivos
+        generales
+        específicos
+        objetivos del proyecto de investigación TODO: Preguntar si me los podrian decir
+    Entonces se intenta brindar un compresor con foco en modularidad y eficiencia, con fuerte documentación que lo acompañe
+        La modularidad corresponde con los objetivos de elaborar un software que a posterior pueda ser expandido o modificado por el NTI (Nucleo de Teoría de informacion) para experimentar con otros modelos estadísticos
+        La documentación, además de estar expresamente mencionada como objetivo toma un rol mayor cuando se empieza a investigar la librería pod5
+        La eficiencia corresponde ya que es un compresor que está embebido en un pipeline de manejo de datos; potencialmente incluyendo su obtención desde el dispositivo secuenciador
+    Desvío de los objetivos originales (Mencionar que el proyecto original hablaba de fast5 y uso pod5)
+        Esto provoca un cambio en los objetivos que implica entonces un mayor esfuerzo de comprensión del código y tecnologías preexistentes, así como en su documentación. Por tanto, una parte razonable del presente informe se encarga de explicar los funcionamientos relevantes de la libreria de terceros expandida.
+    Adicionalmente se provee con un entorno de obtención de datos de prueba y testeo que se espera agilize el desarrollo de posteriores iteraciones sobre el mismo producto. No obstante, ya fue de mucha utilidad en el transcurso del actual proyecto.
+Organización general del documento
+    ... (Despues lo relleno, al final)
+Revisión de antecedentes
+    Secuenciacion de adn
+        idea general
+        metodos de primera generacion
+        metodos de segunda generacion
+        metodos de tercera generacion (nanoporos)
+            solucion de ONT
+    Minion y ONT
+    Formatos de archivos anteriores
+        hdf5
+        fast5
+        multifast5
+            avances proyecto IL20-1
+            picopore
+        slow5
+        pod5
+    Métodos de compresión
+        StreamVByte
+        Deflate
+        VBZ
+        Compresión aritmetica
+
+    Modelos estadísticos
+        ... (Cuando me meta en el tema los involucro)
+parte central
+    decisión:
+        fast5 vs slow5 vs pod5
+    estructura del proyecto (diagrama de base.pdf, donde se muestra las 2 APIs + librería de C++)
+    Comentar sobre la relevancia de la documentación de la librería
+    Introduccion a pod5: (TODO: preguntar si lo pongo en parte central o revisión de antecedentes)
+        librerias base: 
+            arrow
+                Introduccion y casos de uso de apache arrow IPC y apache parquet
+                Datatypes
+                Arrays
+                Esquemas
+                Tablas
+                Concepto de batch (arrow)
+                    A nivel de archivo
+                    A nivel de la librería C++
+                Dirigir al anexo para la espec. completa del formato.
+            flatbuffers (mención breve)
+        pod5:
+            Introduccion
+            existencia de conversor pod5 <-> fast5 oficial de ONT    
+            Definicion de read, run y signal
+            Tablas existentes (diagrama concreto de las 3 tablas (solo su nombre) y su claves foraneas) (diagrama de dada 1 read, tengo n "cajas" de señal como dijo Guille)
+            Tablas => Diagrama detallado con todos los atributos (dibujo de las tablas)
+            Esquema de archivo (digrama de página de ONT original)
+            Concepto de batch
+                A nivel conceptual (conjunto consecutivo de registros de una tabla)
+                    unidad fundamental de serialiacion
+                En la librería C++
+                    Su relacion con un batch de arrow
+                    Responsabilidades a alto nivel
+                En la API de C y Python
+                    No todos los batches se exponen al cliente
+                Segmentación de señal en chunks
+            Trabajando con pod5: un ejemplo practico
+                código de referencia Python de copy.cpp
+                    Porqué el test extrinseco fundamental (copy.cpp) se escribe en C, se explica en la parte de experimentacion. No obstante mencionar que voy a hablar despues de eso.
+            Trabajando con pod5: pseudocódigos
+                pseudocodigo para leer todos los reads de un archivo y todos sus metadatos asociados (run y señal) como es visto desde C, incluyendo el manejo de batches
+                pseudocodigo para escribir datos a un archivo desde C, incluyendo el manejo de batches
+                pseudocódigo de copy.cpp
+            Explicando la implementación:
+                TODO: ver si no es necesario reflejar los componentes logicos de la parte anterior en los diagramas de aquí, en general cosas que no son el batch
+                Diagrama de clases de alto nivel (solo nombres, sin detalles como templates o tipos Result)
+                    Diagrama de lectura
+                        descripcion de responsabilidades
+                    Diagrama de escritura
+                        descripcion de responsabilidades
+                    Diagrama total
+                        descripcion de responsabilidades (aquellas que falten de los puntos anteriores y sean relevantes)
+                Agregar un diagrama de flujo de datos para lectura y escritura (uno simplificado y otro detallado como el que "presenté" el 21/6)
+                    En diagrama de flujo debe quedar claro el rol de los visitors (explicar cada uno) y SignalBuilder en la escritura, y donde efectivamente se llama al compresor. Además debe quedar claro en lectura, quien se encarga de la descompresion
+                Diagrama de interacción simplificado (evitando intermediarios irrelevantes, como objetos temporales, caches; debe quedar clara la interaccion antre la API y el reader/writer, entre el reader/writer general y los especializados por tabla; entre el reader y los batches), partiendo desde la API de C hasta que se escribe en el archivo
+                Apuntar al anexo para el diagrama de clases e interaccion completo (lo que les presenté el 21/6, con correcciones, aprolijandolo, pasándolo a español y agregando detalles relevantes para que quede consiste el esquema)
+            Una vista en capas de POD5
+
+    decision: Integrarse a la libreria VS standalone (TODO: alguna justificacion extra a "me dijeron los tutores")
+
+    Atributos de calidad (TODO: Sería este el nombre más apropiado?) a conservar:
+        - Random access
+        - Threading
+        Otros no considerados:
+            - Capacidad de recovery
+
+    Cambios realizados sobre la librería
+        Para cada <explicacion> en la sección: Volver a los diagramas de clases presentados; agregando los componentes de PGNano e identificando con (por ejemplo un color) las clases modificadas.
+        <explicacion> de alto nivel:
+            Agregar nueva señal
+                Explicar que se busca mantener la codebase preexistente
+                Explicar porqué se debe registrar un nuevo datatype (básicamente requerimiento de arrow); y decir que esto se hace respetando las abstracciones de ONT
+            Pasar metadatos
+                Explicar decision de comprimir en todos las señales los metadatos
+        
+        <explicacion> en alto nivel los cambios que tienen métodos relevantes y/o flujos de datos
+            Recalcar que impacto tendría en el flujo de datos la no compresión de los metadatos en las filas de la tabla de señal, como se debe generar una estructura de datos global y agregar locks, dificultando el random access y la paralelizacion
+
+    Otras librerias utilizadas
+        Justificacion del uso de c/u (por ejemplo porqué elegí tal compresor aritmetico y no otro)
+
+    Estructura del módulo desarrollado:
+        Estructura simplificada del modulo de PGNano (diagrama de clases y de interacción, análogo a la sección de pod5)
+            Explicar las responsabilidades de cada clase y algunos patrones usados, como adapters para integral las diferentes liberías
+            Apuntar al anexo para diagramas más detallados
+
+        Explicar las abstracciones utilizadas, donde queda representado el modelo estadístico, donde queda
+        representado las clases de contexto, donde queda el codificador en si (el range coder por ej)
+
+        A los diagramas de clases/interaccion y flujo de datos de la sección anterior, en véz de llamar ahora al componente "PGNano", se expande el componente PGNano en sus partes (un "zoom" a los diagramas).
+
+
+    Otro software desarrollado
+        Copy.cpp
+        Data extraction
+        Test utils (wrappers en Python; explicar xq no puedo usar directamente la API de Python para esto, escencialemente por el problema de compilación y soporte de la API de Python, que no me deja acceder a mis funcionalidades)
+            Test aplicables sobre el archivo y verificacion correcta de descargas
+            Equivalencia observacional
+
+    Explicacion de que funcionalidades de las APIs de C y Python se cubren con la extension y cuales no, justificando cuando corresponda. 
+        Indicar cuales "probablemente funcionen" (como escritura de datos precomprimirdos) por las capas de abstraccion de la libreria de pod5 y cuales "ni idea" (ej recovery) y cuales faltan (compresion standalone )
+    
+    Ciclo de vida del proyecto
+        Etapas:
+            estudio del estado del arte
+            librerias para modificar
+            Estudio del formato pod5
+            Estudio de dependencias (arrow)
+            MVP de API de Python => TODO: Problemas de compilacion
+            MVP de API de C (copy.cpp)
+            Definicion de casos de prueba "end to end"
+            Descarga de datos y script de descarga de datos
+            MVP de nueva señal
+            automatizacion y estandarizacion de los casos de prueba
+            Compresion dummy
+            Compression aritmetica
+            ...
+    
+    Herramientas utilizadas
+        Entorno de desarrollo
+        Entorno de test (mencion a lnano.fing.edu.uy)
+        Buildsystem
+
+    Menciones relevantes:
+        POD5 es open source y por tanto mediante GitHub existio comunicacion con los desarrolladores de la libreria
+
+experimentación
+    Explicacion de tests end to end mediante copy.cpp. Explicar uso de wrappers en Python. Explicar que es necesario antes hacer una copia "dummy" para convertir todo a un mismo chunk size de señal y que los resultados sean comparables
+    Justificacion de existancia del script de extraccion de datos automaticos y explicacion de su funcionamiento
+        Explicacion de los algoritmos de sampling para transparentar obtencion de datos
+    Explicacion de como se construye el dataset, y como un objetivo (TODO: quizas autoimpuesto, pero util, ya que varios datasets no servian para lo que se querias)
+        Se queria variedad en:
+            poros
+            laboratorios
+            organismos (foco en DNA humano)
+            ...
+    Otros aspectos investigados pero segun los que no se segmenta, por la magnitud del análisis a posterior
+        Q Score
+        ... (TODO: revisar notas)
+    
+    Una explicacion de alto nivel de los experimentos:
+        Explicacion de alto nivel de experimentos de modelado estadísticos
+        Explicacion de alto nivel de experimentacion y test sobre producto final (con copy)
+
+    Resultados y analisis de la experimentacion estadistica
+
+    Resultados y analisis de la implementacion en C
+
+    Comparación contra otros compresores preexistentes (particularmente VBZ) TODO: Preguntar F5Comp y Picopore
+
+conclusiones
+trabajo a futuro
+    TODO: revisar todo el backlog y notas que tengo y de ahí seguro que hay trabajo a futuro (lo completo al finalizar)
+referencias
+Glosario y acrónimos
+anexos
+    Además de todos los mencionados anteriormente (TODO: poner como una lista aquí):
+        Documentacion de desarrollador

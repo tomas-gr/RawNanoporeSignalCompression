@@ -1,0 +1,19 @@
+------------------------------------------------------------------
+--------------------- Compression Benchmarks ---------------------
+------------------------------------------------------------------
+10: 7.35141 bits/symbol at speed: 179.96MB/s
+11: 7.35498 bits/symbol at speed: 187.664MB/s
+12: 7.35718 bits/symbol at speed: 188.023MB/s
+13: 7.3572 bits/symbol at speed: 187.898MB/s
+14: 7.35722 bits/symbol at speed: 188.548MB/s
+15: 7.35722 bits/symbol at speed: 188.057MB/s
+16: 7.35722 bits/symbol at speed: 188.516MB/s
+9 : 7.38954 bits/symbol at speed: 10.5331MB/s
+5 : 7.43075 bits/symbol at speed: 4.68092MB/s
+1 : 7.44822 bits/symbol at speed: 7.88454MB/s
+4 : 7.45388 bits/symbol at speed: 6.43562MB/s
+3 : 7.46705 bits/symbol at speed: 7.54397MB/s
+2 : 7.49734 bits/symbol at speed: 7.57167MB/s
+6 : 7.62321 bits/symbol at speed: 3.40456MB/s
+7 : 7.82693 bits/symbol at speed: 2.8513MB/s
+8 : 7.87323 bits/symbol at speed: 3.12983MB/s
