@@ -2,7 +2,9 @@
 
 Project to develop a compressor for pod5 files containing raw nanopore sequencing data
 
-# How to compile
+## Description
+
+## How to compile
 If compiling for the first time then run
 ./build.sh init
 If not execute
@@ -12,13 +14,15 @@ This will create an executable file inside experiments/compressors for each
 compressor.
 
 
-# How to run
+## How to run
 To compress (or decompress) a single file it can be done using
 ./COMPRESSOR <archivo_entrada> <archivo_salida> <--uncompressed | --VBZ | --pgnano>
 Te option pgnano uses the new compressor depending on which executable is being used.
 To use the standard VBZ compressor run with --VBZ.
 
-# How to recreate experiments
+## Requirements
+
+## How to recreate experiments
 Inside the experiments directory run the script 
 run_experiments.sh
 
@@ -33,7 +37,7 @@ The first is aggregated.py which will compute the total bps of each database (an
 The second one is total_results.py which process the bps, compression and decompression rate (mb/s) and the amount of memory used for each file in each database. 
 Both scripts will output to a CSV file.
 
-# Obtaining Datasets
+## Obtaining Datasets
 This projecto focuses on pore types R9.4.1, R10.3 and R10.4.1. At least one dataset for each was needed.
 On the other hand we are mostly interested in human genome secuencing, but another organism was also included in the experiments.
 In the following table the characteristics of each dataset are shown:
@@ -78,7 +82,7 @@ For normalization of chunk size, all the POD5 generated with the conversion tool
 | GIAB10.3       | GM24385 (Genome in a bottle; 10.3)              |
 | Fly            | Drosophila melanogaster Nanopore Q20 sequencing |
 
-# Included benchmark
+## Included benchmark
 There is also a built in benchmark which runs over a sample of the data.
 In order to run it first the data path must be specified in some of the files inside src/python/pgnano.
 The first is constants/constants.py where the roots and the venv interpreter path must be specified correctly.
