@@ -1,8 +1,45 @@
-# pod5_nanoraw_comp
+# RawNanoporeSignalCompression
+## This project consist on a thorough study of the state of the art lossless compressor for raw nanopore sequencing data (VBZ) developed by ONT, as well as the proposal of several improvements. 
+### *Supported platforms:* Linux
+### *Authors:* Rafael Castelli, Tomás González, Rodrigo Torrado, Álvaro Martín and Guillermo Dufort Y Álvarez
+### *Contact: *tomas.gonzalez.uy@gmail.com
 
-Project to develop a compressor for pod5 files containing raw nanopore sequencing data
+## Instalation from source code
+### Requirements
+  1. Arrow [installation](https://arrow.apache.org/install/)
+  2. gsl-devel
+for gsl-devel installation on Fedora run:
+```
+sudo dnf install gsl-devel
+```
+If using a Debian based distribution:
+```
+sudo apt-get install libgsl-dev
+```
+### Download repository
+```
+git clone https://github.com/tomas-gr/RawNanoporeSignalCompression.git
+```
+### Install dependencies
+We recommend using a conda environment for the instalation, and it will be used for the tutorial.
+See [this](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html) page for installation instructions for conda. Once conda is installed, we recommend creating an environment with python=3.11:
+```
+conda create --name nanoRawEnv python=3.11
+```
+After that in order to install dependencies run:
+```
+conda install -c conda-forge setuptools_scm
+conda install -c conda-forge boost
+conda install -c conda-forge flatbuffers
+```
+When compiling for the first time run:
+```
+cd RawNanoporeSignalCompression
+./build.sh init
+```
 
-## Description
+
+
 
 ## How to compile
 If compiling for the first time then run
