@@ -2,7 +2,7 @@
 ## This project consist on a thorough study of the state of the art lossless compressor for raw nanopore sequencing data (VBZ) developed by ONT, as well as the proposal of several improvements. 
 ### *Supported platforms:* Linux
 ### *Authors:* Rafael Castelli, Tomás González, Rodrigo Torrado, Álvaro Martín and Guillermo Dufort Y Álvarez
-### *Contact: *tomas.gonzalez.uy@gmail.com
+### *Contact:* tomas.gonzalez.uy@gmail.com
 
 ## Instalation from source code
 ### Requirements
