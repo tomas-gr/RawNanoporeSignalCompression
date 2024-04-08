@@ -78,12 +78,12 @@ Both scripts will output to a CSV file.
 This projecto focuses on pore types R9.4.1, R10.3 and R10.4.1. At least one dataset for each was needed.
 On the other hand we are mostly interested in human genome secuencing, but another organism was also included in the experiments.
 In the following table the characteristics of each dataset are shown:
-| Shortened Name | Organism | Author               | Number of files sampled | Pore type | Total size (GB) |
-|----------------|----------|----------------------|-------------------------|-----------|-----------------|
-| Fly            | Fly      | Standford University | 14                      | R10.4.1   | 8.8             |
-| GIAB10.3       | Human    | ONT                  | 14                      | R10.3     | 12.4            |
-| GIAB9.4.1      | Human    | ONT                  | 15                      | R9.4.1    | 12.1            |
-| GIAB10.4.1     | Human    | ONT                  | 15                      | R10.4.1   | 12.1            |
+| Shortened Name | Organism | Author               | Pore type | Total size (GB) | Link for download                                                     | Information          |
+|----------------|----------|----------------------|-----------|-----------------|-----------------------------------------------------------------------|----------------------|
+| Fly            | Fly      | Standford University | R10.4.1   | 8.8             |[link](s3://ont-open-data/contrib/melanogaster bkim 2023.01/flowcells/)|[link](https://www.ncbi.nlm.nih.gov/bioproject/?term=PRJNA914057)|
+| GIAB10.3       | Human    | ONT                  | R10.3     | 12.4            |[link](s3://ont-open-data/gm24385 2020.09/)                            |[link](https://labs.epi2me.io/gm24385_2020.09/ )|
+| GIAB9.4.1      | Human    | ONT                  | R9.4.1    | 12.1            |[link](s3://ont-open-data/gm24385 2020.09/)                            |[link](https://labs.epi2me.io/gm24385_2020.09/ )|
+| GIAB10.4.1     | Human    | ONT                  | R10.4.1   | 12.1            |[link](s3://ont-open-data/giab lsk114 2022.12/)                        |[link](https://labs.epi2me.io/askenazi-kit14-2022-12/)|
 
 Note that GIAB10.3 and GIAB9.4.1 are published as a unique dataset obtained using the two different pore types.
 
@@ -97,27 +97,6 @@ For conversion from FAST5 to POD5 we used a tool provided by ONT availabe on:
 https://github.com/nanoporetech/pod5-file-format/tree/master/python/pod5#pod5-convert-fast5
 
 For normalization of chunk size, all the POD5 generated with the conversion tool can then be copied with the POD5 library, using the default chunk size.
-
-| Shortened Name | Link for download                                               |
-|:--------------:|-----------------------------------------------------------------|
-| GIAB10.4.1     | s3://ont-open-data/giab lsk114 2022.12/                         |
-| GIAB9.4.1      | s3://ont-open-data/gm24385 2020.09/                             |
-| GIAB10.3       | s3://ont-open-data/gm24385 2020.09/                             |
-| Fly            | s3://ont-open-data/contrib/melanogaster bkim 2023.01/flowcells/ |
-
-| Shortened Name | Webpage with more information                             |
-|:--------------:|-----------------------------------------------------------|
-| GIAB10.4.1     | https://labs.epi2me.io/askenazi-kit14-2022-12/            |
-| GIAB9.4.1      | https://labs.epi2me.io/gm24385_2020.09/                   |
-| GIAB10.3       | https://labs.epi2me.io/gm24385_2020.09/                   |
-| Fly            | https://www.ncbi.nlm.nih.gov/bioproject/?term=PRJNA914057 |
-
-| Shortened Name | Name                                            |
-|:--------------:|-------------------------------------------------|
-| GIAB10.4.1     | Genome in a Bottle - Ashkenazi Trio             |
-| GIAB9.4.1      | GM24385 (Genome in a bottle; 9.4.1)             |
-| GIAB10.3       | GM24385 (Genome in a bottle; 10.3)              |
-| Fly            | Drosophila melanogaster Nanopore Q20 sequencing |
 
 ## Included benchmark
 There is also a built in benchmark which runs over a sample of the data.
