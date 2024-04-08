@@ -5,21 +5,6 @@
 ### *Contact:* tomas.gonzalez.uy@gmail.com
 
 ## Instalation from source code
-### Requirements
-  1. Arrow [installation](https://arrow.apache.org/install/)
-  2. gsl-devel
-for gsl-devel installation on Fedora run:
-```
-sudo dnf install gsl-devel
-```
-If using a Debian based distribution:
-```
-sudo apt-get install libgsl-dev
-```
-### Download repository
-```
-git clone https://github.com/tomas-gr/RawNanoporeSignalCompression.git
-```
 ### Install dependencies
 We recommend using a conda environment for the instalation, and it will be used for the tutorial.
 See [this](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html) page for installation instructions for conda. Once conda is installed, we recommend creating an environment with python=3.11:
@@ -31,16 +16,27 @@ After that in order to install dependencies run:
 conda install -c conda-forge setuptools_scm
 conda install -c conda-forge boost
 conda install -c conda-forge flatbuffers
+conda install -c conda-forge arrow
 ```
+Also install gsl-devel from package manager
+For gsl-devel installation on Fedora run:
+```
+sudo dnf install gsl-devel
+```
+If using a Debian based distribution:
+```
+sudo apt-get install libgsl-dev
+```
+### Download repository
+```
+git clone https://github.com/tomas-gr/RawNanoporeSignalCompression.git
+```
+
 When compiling for the first time run:
 ```
 cd RawNanoporeSignalCompression
 ./build.sh init
 ```
-
-
-
-
 ## How to compile
 If compiling for the first time then run
 ./build.sh init
