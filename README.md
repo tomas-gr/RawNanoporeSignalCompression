@@ -13,47 +13,52 @@ conda create --name nanoRawEnv python=3.11
 ```
 After that in order to install dependencies run:
 ```
-conda install -c conda-forge setuptools_scm
 conda install -c conda-forge boost
 conda install -c conda-forge flatbuffers
-conda install -c conda-forge arrow
-```
-Also install gsl-devel from package manager
-For gsl-devel installation on Fedora run:
-```
-sudo dnf install gsl-devel
-```
-If using a Debian based distribution:
-```
-sudo apt-get install libgsl-dev
+pip install pod5
 ```
 ### Download repository
 ```
 git clone https://github.com/tomas-gr/RawNanoporeSignalCompression.git
 ```
-
+### Modify consants
+Inside 
+```
+src/python/pgnano/constants/constants.py
+```
+On lines 1. and 7. respectively modify:
+```
+ project_root="/data/pinanoraw/tgonzalez/" # Add the root to where the repository has been cloned
+	venv_interpreter_path = "/data/pinanoraw/tgonzalez/.conda/envs/pgnano/bin/python3.11" # Add root to your conda environment instalation
+```
 When compiling for the first time run:
 ```
-cd RawNanoporeSignalCompression
 ./build.sh init
 ```
-## How to compile
-If compiling for the first time then run
-./build.sh init
-If not execute
-./build.sh c clean release
-After that run the script compile_all.sh inside experiments directory.
-This will create an executable file inside experiments/compressors for each
-compressor.
+After that the program is compiled with
+```
+./build.sh c <clean|dirty> <release|debug|profile>
+```
 
+After that run the script compile_all.sh inside utils directory.
+This will create an executable file inside utils/compressors for each
+compressor.
 
 ## How to run
 To compress (or decompress) a single file it can be done using
-./COMPRESSOR <archivo_entrada> <archivo_salida> <--uncompressed | --VBZ | --pgnano>
-Te option pgnano uses the new compressor depending on which executable is being used.
+```
+./COMPRESSOR <input_file> <output> <--uncompressed | --VBZ | --pgnano>
+```
+The option pgnano uses the new compressor depending on which executable is being used.
 To use the standard VBZ compressor run with --VBZ.
 
-## Requirements
+## Check consistency
+In order to verify that the compressors are working correctly, there is a script to verify that the files can be recovered correctly.
+With the conda environment activated run
+```
+python src/python/pgnano/main_scripts/ont_check_pod5_files_equal.py file1 file2
+```
+This script compares two files both compressed with VBZ.
 
 ## How to recreate experiments
 Inside the experiments directory run the script 
@@ -93,17 +98,6 @@ For conversion from FAST5 to POD5 we used a tool provided by ONT availabe on:
 https://github.com/nanoporetech/pod5-file-format/tree/master/python/pod5#pod5-convert-fast5
 
 For normalization of chunk size, all the POD5 generated with the conversion tool can then be copied with the POD5 library, using the default chunk size.
-
-## Included benchmark
-There is also a built in benchmark which runs over a sample of the data.
-In order to run it first the data path must be specified in some of the files inside src/python/pgnano.
-The first is constants/constants.py where the roots and the venv interpreter path must be specified correctly.
-Then in data_obtention/build_benchmark_dataset.py the output path must be specified to output the file benchmark_file.bin inside the root directory of the project.
-
-If the benchmark is being run for the first time then build_benchmark_dataset.py must be run.
-Then the executable benchmark inside build/src/c++/benchmark can be run.
-
-The version of the compressor being benchmarked is the one specified in the constant defined un the first line of pod5/c++/pod5_format/pgnano/pgnano.cpp
 
 
 
