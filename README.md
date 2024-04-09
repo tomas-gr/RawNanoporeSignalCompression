@@ -6,8 +6,8 @@
 
 ## Instalation from source code
 ### Install dependencies
-We recommend using a conda environment for the instalation, and it will be used for the tutorial.
-See [this](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html) page for installation instructions for conda. Once conda is installed, we recommend creating an environment with python=3.11:
+A conda environment is used for the instalation.
+See [this](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html) page for installation instructions for conda. Once conda is installed, create an environment called "nanoRawEnv" with python=3.11:
 ```
 conda create --name nanoRawEnv python=3.11
 ```
@@ -59,21 +59,6 @@ With the conda environment activated run
 python src/python/pgnano/main_scripts/ont_check_pod5_files_equal.py file1 file2
 ```
 This script compares two files both compressed with VBZ.
-
-## How to recreate experiments
-Inside the experiments directory run the script 
-run_experiments.sh
-
-NOTE: For the time results to be coherent, the experiments must be run sequentially. For this the parameter
-num_paraller must be set to 1 (line 20 in run_experiments.sh). This will be much slower.
-
-This will run each compressor for each file specified in the root folder inside the script.
-The output of the results is written to a file inside the results directory.
-
-Then there are two python script which can be used to process the results.
-The first is aggregated.py which will compute the total bps of each database (and for each buffer), and the average of several statistics 
-The second one is total_results.py which process the bps, compression and decompression rate (mb/s) and the amount of memory used for each file in each database. 
-Both scripts will output to a CSV file.
 
 ## Obtaining Datasets
 This projecto focuses on pore types R9.4.1, R10.3 and R10.4.1. At least one dataset for each was needed.
