@@ -28,8 +28,8 @@ src/python/pgnano/constants/constants.py
 ```
 On lines 1. and 7. respectively modify:
 ```
- project_root="/data/pinanoraw/tgonzalez/" # Add the root to where the repository has been cloned
-	venv_interpreter_path = "/data/pinanoraw/tgonzalez/.conda/envs/pgnano/bin/python3.11" # Add root to your conda environment instalation
+project_root="/data/pinanoraw/tgonzalez/" # Add the root to where the repository has been cloned
+venv_interpreter_path = "/data/pinanoraw/tgonzalez/.conda/envs/pgnano/bin/python3.11" # Add root to your conda environment instalation
 ```
 When compiling for the first time run:
 ```
