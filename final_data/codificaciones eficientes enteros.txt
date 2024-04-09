@@ -1,7 +1,0 @@
-PGNano                  : 6.95871 bits/symbol at speed: 48.9614MB/s
-Vbz                     : 7.19872 bits/symbol at speed: 915.562MB/s
-TurboPFor ZigZag        : 7.74615 bits/symbol at speed: 620.88MB/s
-TurboPFor Transform     : 7.74818 bits/symbol at speed: 337.004MB/s
-Variable byte Transform : 8.44684 bits/symbol at speed: 428.9MB/s
-TurboPFor               : 10.4272 bits/symbol at speed: 1110.29MB/s
-Variable byte           : 15.9992 bits/symbol at speed: 939.89MB/s

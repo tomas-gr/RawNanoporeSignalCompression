@@ -1,4 +1,4 @@
-#define COMPRESSOR_N03
+#define COMPRESSOR_C5
 
 #include <arrow/buffer.h>
 
@@ -20,17 +20,13 @@
 #include <arrow/buffer.h>
 #include <zstd.h>
 
-#include "pod5_format/pgnano/svb16/KD.hpp"
-#include "pod5_format/pgnano/svb16/VBZ_1.hpp"
-#include "pod5_format/pgnano/svb16/ll_lh.hpp"
-#include "pod5_format/pgnano/svb16/l_h.hpp"
-#include "pod5_format/pgnano/svb16/nano_01.hpp"
-#include "pod5_format/pgnano/svb16/nano_02.hpp"
-#include "pod5_format/pgnano/svb16/nano_03.hpp"
+#include "pod5_format/pgnano/svb16/C1.hpp"
+#include "pod5_format/pgnano/svb16/VBZ_0.hpp"
+#include "pod5_format/pgnano/svb16/C3.hpp"
+#include "pod5_format/pgnano/svb16/C2.hpp"
+#include "pod5_format/pgnano/svb16/C5.hpp"
+#include "pod5_format/pgnano/svb16/C4.hpp"
 
-
-
-// TODO: Use SampleType instead of int16_t
 extern long full_size_keys;
 extern long full_size_S;
 extern long full_size_M;
@@ -60,8 +56,6 @@ std::size_t compressed_signal_max_size(std::size_t sample_count)
 }
 
 
-// FUNCIÓN QUE SE CITA EN OTROS ARCHIVOS -------- > AQUI SE ELIGE QUE COMPRESOR USAR //
-
 arrow::Result<std::shared_ptr<arrow::Buffer>> compress_signal(  
     gsl::span<std::int16_t const> const & samples,
     arrow::MemoryPool * pool,
@@ -73,38 +67,34 @@ arrow::Result<std::shared_ptr<arrow::Buffer>> compress_signal(
         std::shared_ptr<arrow::ResizableBuffer> out,
         arrow::AllocateResizableBuffer(pgnano::Compressor::compressed_signal_max_size(samples.size(), read_data), pool));
 
-    ARROW_ASSIGN_OR_RAISE( // Funciones: compress_signal_lh - compress_signal_ll_lh - compress_signal_KD //
+    ARROW_ASSIGN_OR_RAISE( 
         auto final_size,
-        #ifdef COMPRESSOR_VBZ 
+        #ifdef COMPRESSOR_VBZ1 
             pod5::compress_signal(samples, pool, gsl::make_span(out->mutable_data(), out->size())));
         #endif
-        #ifdef COMPRESSOR_VBZ1
+        #ifdef COMPRESSOR_VBZ0
             pgnano::compress_signal_VBZ1(samples, pool, gsl::make_span(out->mutable_data(), out->size()), read_data, is_last_batch));
         #endif
-        #ifdef COMPRESSOR_KD
+        #ifdef COMPRESSOR_C1
             pgnano::compress_signal_KD(samples, pool, gsl::make_span(out->mutable_data(), out->size()), read_data, is_last_batch));
         #endif
-        #ifdef COMPRESSOR_LH
+        #ifdef COMPRESSOR_C2
             pgnano::compress_signal_lh(samples, pool, gsl::make_span(out->mutable_data(), out->size()), read_data, is_last_batch));
         #endif
-        #ifdef COMPRESSOR_LL_LH
+        #ifdef COMPRESSOR_C3
             pgnano::compress_signal_ll_lh(samples, pool, gsl::make_span(out->mutable_data(), out->size()), read_data, is_last_batch));
         #endif
-        #ifdef COMPRESSOR_N01
+        #ifdef COMPRESSOR_C5
             pgnano::compress_signal_N01(samples, pool, gsl::make_span(out->mutable_data(), out->size()), read_data, is_last_batch));
         #endif
-        #ifdef COMPRESSOR_N02
+        #ifdef COMPRESSOR_C4
             pgnano::compress_signal_N02(samples, pool, gsl::make_span(out->mutable_data(), out->size()), read_data, is_last_batch));
-        #endif
-        #ifdef COMPRESSOR_N03
-            pgnano::compress_signal_N03(samples, pool, gsl::make_span(out->mutable_data(), out->size()), read_data, is_last_batch));
         #endif
         
     ARROW_RETURN_NOT_OK(out->Resize(final_size));
     return out;
 }
 
-// DECOMPRESOR LL_LH //   ---->   FALTA AGREGAR LOS OTROS DECOMPRESORES 
 pod5::Status decompress_signal(
     gsl::span<std::uint8_t const> const & compressed_bytes,
     arrow::MemoryPool * pool,
@@ -112,29 +102,26 @@ pod5::Status decompress_signal(
     pgnano::PGNanoReaderState & state)
 {
 
-    #ifdef COMPRESSOR_VBZ
+    #ifdef COMPRESSOR_VBZ1
         return pod5::decompress_signal(compressed_bytes, pool, destination);
     #endif
-    #ifdef COMPRESSOR_VBZ1
+    #ifdef COMPRESSOR_VBZ0
         return pgnano::decompress_signal_VBZ1(compressed_bytes, pool, destination, state);
     #endif
-    #ifdef COMPRESSOR_KD
+    #ifdef COMPRESSOR_C1
         return pgnano::decompress_signal_KD(compressed_bytes, pool, destination, state);
     #endif
-    #ifdef COMPRESSOR_LH
+    #ifdef COMPRESSOR_C2
         return pgnano::decompress_signal_lh(compressed_bytes, pool, destination, state);
     #endif
-    #ifdef COMPRESSOR_LL_LH
+    #ifdef COMPRESSOR_C3
         return pgnano::decompress_signal_ll_lh(compressed_bytes, pool, destination, state);
     #endif
-    #ifdef COMPRESSOR_N01
+    #ifdef COMPRESSOR_C5
         return pgnano::decompress_signal_N01(compressed_bytes, pool, destination, state);
     #endif
-    #ifdef COMPRESSOR_N02
+    #ifdef COMPRESSOR_C4
         return pgnano::decompress_signal_N02(compressed_bytes, pool, destination, state);
-    #endif
-    #ifdef COMPRESSOR_N03
-        return pgnano::decompress_signal_N03(compressed_bytes, pool, destination, state);
     #endif
 }
 

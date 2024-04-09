@@ -1,3 +1,0 @@
-Generar una clase que sea context_manager que le doy el siguiente símbolo y me el modelo a usar (o lista de modelos por lo de high order y low order)
-De esta forma encapsulo mejor lo de modelo estadístico
-Y en general definir como pipeline para que sea más modular <=> capaz esto solo en Python x tema performance

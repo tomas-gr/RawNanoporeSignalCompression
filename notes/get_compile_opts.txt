@@ -1,4 +1,0 @@
-objdump -s -j .GCC.command.line copy
-objdump -s -j .GCC.command.line copy | awk '{print $6}' | tr -d '\n' ; echo
-
-
