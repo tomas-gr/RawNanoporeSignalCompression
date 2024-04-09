@@ -62,7 +62,7 @@ compile_copy () {
 
 activate_conda () {
     eval "$(conda shell.bash hook)"
-    conda activate pod5_nanoraw
+    conda activate nanoRawEnv
     
 }
 
