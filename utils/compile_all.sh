@@ -4,6 +4,9 @@
 source_directory="../"
 
 # Specify the destination directory where you want to copy the binary files
+if [ ! -d "compressors" ]; then
+    mkdir -p compressors
+fi
 destination_directory="./compressors"
 
 # List of C++ files to compile

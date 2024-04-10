@@ -7,6 +7,8 @@ pgnano.egg-info/dependency_links.txt
 pgnano.egg-info/top_level.txt
 pgnano/constants/__init__.py
 pgnano/constants/constants.py
+pgnano/constants/__pycache__/__init__.cpython-311.pyc
+pgnano/constants/__pycache__/constants.cpython-311.pyc
 pgnano/data_obtention/__init__.py
 pgnano/data_obtention/build_benchmark_dataset.py
 pgnano/data_obtention/dataset_retrieval.py
@@ -15,6 +17,12 @@ pgnano/data_obtention/get_data.py
 pgnano/data_obtention/parse_ont_s3_data.py
 pgnano/data_obtention/sample_one_read.py
 pgnano/data_obtention/utils.py
+pgnano/data_obtention/__pycache__/__init__.cpython-311.pyc
+pgnano/data_obtention/__pycache__/dataset_retrieval.cpython-311.pyc
+pgnano/data_obtention/__pycache__/folder_traversal.cpython-311.pyc
+pgnano/data_obtention/__pycache__/get_data.cpython-311.pyc
+pgnano/data_obtention/__pycache__/parse_ont_s3_data.cpython-311.pyc
+pgnano/data_obtention/__pycache__/utils.cpython-311.pyc
 pgnano/final_data_presentation/.old_signal_separation_graphs.py
 pgnano/final_data_presentation/error_vs_signal_graph.py
 pgnano/final_data_presentation/extended_bincount.py
@@ -104,3 +112,9 @@ pgnano/test_scripts/dummy_download_test.py
 pgnano/test_scripts/iteration_test.py
 pgnano/test_scripts/normalize_chunk_size.py
 pgnano/test_scripts/run_converters.py
+pgnano/test_scripts/__pycache__/__init__.cpython-311.pyc
+pgnano/test_scripts/__pycache__/double_conversion.cpython-311.pyc
+pgnano/test_scripts/__pycache__/dummy_download_test.cpython-311.pyc
+pgnano/test_scripts/__pycache__/iteration_test.cpython-311.pyc
+pgnano/test_scripts/__pycache__/normalize_chunk_size.cpython-311.pyc
+pgnano/test_scripts/__pycache__/run_converters.cpython-311.pyc
