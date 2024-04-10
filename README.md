@@ -13,26 +13,31 @@ conda create --name nanoRawEnv python=3.11
 ```
 After that in order to install dependencies run:
 ```
-conda install -c conda-forge boost
-conda install -c conda-forge flatbuffers
+conda install boost-cpp
+conda install cmake
+# Only install arrow if not already provided by the OS, otherwise linkage problems might arise with different c++ standard version between OS's library and conda's
+conda install arrow-cpp=8
+conda install flatbuffers
+conda install zstd
+conda install setuptools_scm
 pip install pod5
+# preferably install hstslib with the given script
+#conda install -c bioconda htslib
+# Only instal gsl (GNU scientific library NOT to be confused with Guidelines Support Library) if not provided by your environment
+# conda install -c conda-forge gsl
 ```
 ### Download repository
 ```
 git clone https://github.com/tomas-gr/RawNanoporeSignalCompression.git
 ```
-### Modify consants
-Inside 
+### Set paths
 ```
-src/python/pgnano/constants/constants.py
-```
-On lines 1. and 7. respectively modify:
-```
-project_root="/data/pinanoraw/tgonzalez/" # Add the root to where the repository has been cloned
-venv_interpreter_path = "/data/pinanoraw/tgonzalez/.conda/envs/pgnano/bin/python3.11" # Add root to your conda environment instalation
+export PROJECT_ROOT=<root to repository>
+export VENV_INTERPRETER_PATH=<root to the python interpreter in you conda environment>
 ```
 When compiling for the first time run:
 ```
+cd RawNanoporeSignalCompressionex
 ./build.sh init
 ```
 After that the program is compiled with
