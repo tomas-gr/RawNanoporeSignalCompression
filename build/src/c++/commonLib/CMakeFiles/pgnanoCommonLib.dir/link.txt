@@ -1,2 +1,0 @@
-/usr/bin/ar qc libpgnanoCommonLib.a CMakeFiles/pgnanoCommonLib.dir/codecs.cpp.o CMakeFiles/pgnanoCommonLib.dir/level_table.cpp.o CMakeFiles/pgnanoCommonLib.dir/model.cpp.o CMakeFiles/pgnanoCommonLib.dir/pore_type_parser.cpp.o CMakeFiles/pgnanoCommonLib.dir/BAM_enriched_read.cpp.o
-/usr/bin/ranlib libpgnanoCommonLib.a

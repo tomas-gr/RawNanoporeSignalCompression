@@ -1,3 +1,0 @@
-# Hashes of file build rules.
-1bf21f1392f13dc9cb32fffb27db87bf pod5/c++/pod5_flatbuffers_fork/footer_generated.h
-75b9e002b5f960761f9fae480f0d3c6e src/c++/third_party/pod5/c++/pod5_flatbuffers/footer_generated.h
