@@ -37,15 +37,14 @@ The packages installed are:
 
 When compiling for the first time run:
 ```
-cd RawNanoporeSignalCompressionex
+cd RawNanoporeSignalCompression
 ./build.sh init
 ```
 After that the compressors are compiled with
 ```
-./
+cd utils
+./compile_all.sh
 ```
-
-After that run the script compile_all.sh inside utils directory.
 This will create an executable file inside utils/compressors for each
 compressor.
 
