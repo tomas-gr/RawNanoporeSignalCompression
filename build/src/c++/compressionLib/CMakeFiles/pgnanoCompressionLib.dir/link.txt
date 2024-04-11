@@ -1,0 +1,2 @@
+/usr/bin/ar qc libpgnanoCompressionLib.a CMakeFiles/pgnanoCompressionLib.dir/compressor.cpp.o CMakeFiles/pgnanoCompressionLib.dir/decompressor.cpp.o
+/usr/bin/ranlib libpgnanoCompressionLib.a

@@ -1,10 +1,12 @@
-project_root="/data/pinanoraw/rtorrado/nanoraw_github"
+# project_root="/data/pinanoraw/rtorrado/nanoraw_github"
+import os
+project_root = os.getenv('PROJECT_ROOT')
 data_root_path = "/data/gdufort/Lectura_Kmeros/archivos_experimentos"
 levels_path = data_root_path + "/levels"
 bam_path = "/data/gdufort/Lectura_Kmeros/archivos_experimentos/BAM_FILES"
 stats_analysis_root_path = data_root_path + "/data_analysis"
 build_path = project_root + "/build"
-venv_interpreter_path = "/data/pinanoraw/rtorrado/.conda/envs/pod5_nanoraw/bin/python3.11"
+venv_interpreter_path = os.getenv('MINICONDA_PATH') + "/envs/nanoRawEnv/bin/python3.11"
 copy_build_path = build_path + "/src/c++/copy"
 compress_build_path = build_path + "/src/c++/compress"
 decompress_build_path = build_path + "/src/c++/decompress"
