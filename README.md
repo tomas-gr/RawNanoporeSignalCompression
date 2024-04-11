@@ -11,21 +11,6 @@ See [this](https://docs.conda.io/projects/conda/en/latest/user-guide/install/ind
 ```
 conda create --name nanoRawEnv python=3.11
 ```
-After that in order to install dependencies run:
-```
-conda install boost-cpp
-conda install cmake
-# Only install arrow if not already provided by the OS, otherwise linkage problems might arise with different c++ standard version between OS's library and conda's
-conda install arrow-cpp=8
-conda install flatbuffers
-conda install zstd
-conda install setuptools_scm
-pip install pod5
-# preferably install hstslib with the given script
-#conda install -c bioconda htslib
-# Only instal gsl (GNU scientific library NOT to be confused with Guidelines Support Library) if not provided by your environment
-# conda install -c conda-forge gsl
-```
 ### Download repository
 ```
 git clone https://github.com/tomas-gr/RawNanoporeSignalCompression.git
@@ -33,16 +18,31 @@ git clone https://github.com/tomas-gr/RawNanoporeSignalCompression.git
 ### Set paths
 ```
 export PROJECT_ROOT=<root to repository>
-export VENV_INTERPRETER_PATH=<root to the python interpreter in you conda environment>
+export MINICONDA_PATH=<root to the miniconda installation>
 ```
+After that in order to install dependencies run:
+```
+./instal_dependencies.sh
+```
+The packages installed are:
+- boost-cpp
+- cmake
+- flatbuffers
+- zstd
+- setuptools_scm
+- htslib
+- GSL (GNU scientific library)
+- arrow-cpp (Version 8.0)
+- pod5 (python library)
+
 When compiling for the first time run:
 ```
 cd RawNanoporeSignalCompressionex
 ./build.sh init
 ```
-After that the program is compiled with
+After that the compressors are compiled with
 ```
-./build.sh c <clean|dirty> <release|debug|profile>
+./
 ```
 
 After that run the script compile_all.sh inside utils directory.
