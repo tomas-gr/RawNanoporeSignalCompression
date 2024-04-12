@@ -70,10 +70,10 @@ On the other hand we are mostly interested in human genome secuencing, but anoth
 In the following table the characteristics of each dataset are shown:
 | Shortened Name | Organism | Author               | Pore type | Total size (GB) | Link for download                                                     | Information          |
 |----------------|----------|----------------------|-----------|-----------------|-----------------------------------------------------------------------|----------------------|
-| Fly            | Fly      | Standford University | R10.4.1   | 8.8             |[link](s3://ont-open-data/contrib/melanogaster bkim 2023.01/flowcells/)|[link](https://www.ncbi.nlm.nih.gov/bioproject/?term=PRJNA914057)|
-| GIAB10.3       | Human    | ONT                  | R10.3     | 12.4            |[link](s3://ont-open-data/gm24385 2020.09/)                            |[link](https://labs.epi2me.io/gm24385_2020.09/ )|
-| GIAB9.4.1      | Human    | ONT                  | R9.4.1    | 12.1            |[link](s3://ont-open-data/gm24385 2020.09/)                            |[link](https://labs.epi2me.io/gm24385_2020.09/ )|
-| GIAB10.4.1     | Human    | ONT                  | R10.4.1   | 12.1            |[link](s3://ont-open-data/giab lsk114 2022.12/)                        |[link](https://labs.epi2me.io/askenazi-kit14-2022-12/)|
+| Fly            | Fly      | Standford University | R10.4.1   | 8.8             |[link](https://labs.epi2me.io/open-data-drosophila/)			 |[link](https://www.ncbi.nlm.nih.gov/bioproject/?term=PRJNA914057)|
+| GIAB10.3       | Human    | ONT                  | R10.3     | 12.4            |[link](https://labs.epi2me.io/gm24385_2020.09/)                        |[link](https://labs.epi2me.io/gm24385_2020.09/ )|
+| GIAB9.4.1      | Human    | ONT                  | R9.4.1    | 12.1            |[link](https://labs.epi2me.io/gm24385_2020.09/)                        |[link](https://labs.epi2me.io/gm24385_2020.09/ )|
+| GIAB10.4.1     | Human    | ONT                  | R10.4.1   | 12.1            |[link](https://labs.epi2me.io/askenazi-kit14-2022-12/)                 |[link](https://labs.epi2me.io/askenazi-kit14-2022-12/)|
 
 Note that GIAB10.3 and GIAB9.4.1 are published as a unique dataset obtained using the two different pore types.
 
