@@ -89,12 +89,17 @@ https://github.com/nanoporetech/pod5-file-format/tree/master/python/pod5#pod5-co
 
 For normalization of chunk size, all the POD5 generated with the conversion tool can then be copied with the POD5 library, using the default chunk size.
 
-## An Example
+## Example pod5 file
 
-In the "example" folder, there's a bash script named "download_example_file.sh." This script is meant to download a fast5 file from the "Fly" dataset mentioned earlier and convert it to a pod5 file. For example, to compress this file using the C1 compressor, you'll need to execute the following command from the "example" folder:
-
+To download and example pod5 file, run the following script:
 ```
-./../utils/compressors/C1 FAV70669_117da01a_45f6321d_55.pod5 FAV70669_117da01a_45f6321d_55.C1 --pgnano
+cd example
+./download_example_file.sh
+```
+This script is downloads a fast5 file from the "Fly" dataset and converts it to pod5.
+To compress this file using Cx compressor, run the following command from the "example" folder:
+```
+./../utils/compressors/C1 FAV70669_117da01a_45f6321d_55.pod5 FAV70669_117da01a_45f6321d_55_Cx.pod5 --pgnano
 ```
 
 
