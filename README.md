@@ -22,6 +22,7 @@ export MINICONDA_PATH=<root to the miniconda installation>
 ```
 After that in order to install dependencies run:
 ```
+conda activate nanoRawEnv
 ./install_dependencies.sh
 ```
 The packages installed are:
