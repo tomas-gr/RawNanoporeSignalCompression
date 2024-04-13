@@ -6,9 +6,6 @@ if [ -z "$MINICONDA_PATH" ]; then
     exit 1
 fi
 
-eval "$(conda shell.bash hook)"
-conda activate nanoRawEnv
-
 # Install dependencies using Conda
 conda install boost-cpp cmake flatbuffers zstd setuptools_scm
 
