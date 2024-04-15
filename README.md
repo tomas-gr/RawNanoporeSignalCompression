@@ -1,13 +1,13 @@
 # RawNanoporeSignalCompression
-## This project consist on a thorough study of the state of the art lossless compressor for raw nanopore sequencing data (VBZ) developed by ONT, as well as the proposal of several improvements. 
+## This project consists on a thorough study of the state-of-the-art lossless compressor for raw nanopore sequencing data VBZ developed by ONT, as well as the proposal of several improvements. 
 ### *Supported platforms:* Linux
 ### *Authors:* Rafael Castelli, Tomás González, Rodrigo Torrado, Álvaro Martín and Guillermo Dufort Y Álvarez
 ### *Contact:* tomas.gonzalez.uy@gmail.com
 
-## Instalation from source code
+## Installation from source code
 ### Install dependencies
-A conda environment is used for the instalation.
-See [this](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html) page for installation instructions for conda. Once conda is installed, create an environment called "nanoRawEnv" with python=3.11:
+A conda environment is used for the installation.
+See [This](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html) page for installation instructions for conda. Once conda is installed, create an environment named "nanoRawEnv" with python=3.11:
 ```
 conda create --name nanoRawEnv python=3.11
 ```
@@ -20,7 +20,7 @@ git clone https://github.com/tomas-gr/RawNanoporeSignalCompression.git
 export PROJECT_ROOT=<root to repository>
 export MINICONDA_PATH=<root to the miniconda installation>
 ```
-After that in order to install dependencies run:
+After that in order to install dependencies, run:
 ```
 conda activate nanoRawEnv
 ./install_dependencies.sh
@@ -66,7 +66,7 @@ python src/python/pgnano/main_scripts/ont_check_pod5_files_equal.py file1 file2
 This script compares two files both compressed with VBZ.
 
 ## Obtaining Datasets
-This projecto focuses on pore types R9.4.1, R10.3 and R10.4.1. At least one dataset for each was needed.
+This project focuses on pore types R9.4.1, R10.3 and R10.4.1. At least one dataset for each was tested.
 On the other hand we are mostly interested in human genome secuencing, but another organism was also included in the experiments.
 In the following table the characteristics of each dataset are shown:
 | Shortened Name | Organism | Author               | Pore type | Total size (GB) | Link for download                                                     | Information          |
@@ -93,13 +93,13 @@ For normalization of chunk size, all the POD5 generated with the conversion tool
 
 To download and example pod5 file, run the following script:
 ```
-cd example
-./download_example_file.sh
+cd RawNanoporeSignalCompression
+example/download_example_file.sh
 ```
-This script is downloads a fast5 file from the "Fly" dataset and converts it to pod5.
+This script downloads a fast5 file from the "Fly" dataset and converts it to pod5.
 To compress this file using Cx compressor, run the following command from the "example" folder:
 ```
-./../utils/compressors/C1 FAV70669_117da01a_45f6321d_55.pod5 FAV70669_117da01a_45f6321d_55_Cx.pod5 --pgnano
+utils/compressors/Cx example/FAV70669_117da01a_45f6321d_55.pod5 example/FAV70669_117da01a_45f6321d_55_Cx.pod5 --pgnano
 ```
 
 
